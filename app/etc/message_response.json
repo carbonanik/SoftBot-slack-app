@@ -1,0 +1,25 @@
+{
+    "is_enterprise_install": false,
+    "team_id": "T02NRMZN8NS",
+    "user_id": "U02NVERT65B",
+    "channel_id": "C040J7YHWET",
+    "logger": <Logger bot.py (DEBUG)>,
+    "token": "xoxb-2773747756774-4018188491895-EWCZab1SrcHcQ51RWXhPOWrD",
+    "client": <slack_sdk.web.client.WebClient object at 0x7f59ca734280>,
+    "authorize_result": {
+        "enterprise_id": null,
+        "team_id": "T02NRMZN8NS",
+        "bot_user_id": "U040J5JEFSB",
+        "bot_id": "B040S4K565C",
+        "bot_token": "xoxb-2773747756774-4018188491895-EWCZab1SrcHcQ51RWXhPOWrD",
+        "user_id": "U02NVERT65B",
+        "user_token": null
+    },
+    "bot_id": "B040S4K565C",
+    "bot_user_id": "U040J5JEFSB",
+    "bot_token": "xoxb-2773747756774-4018188491895-EWCZab1SrcHcQ51RWXhPOWrD",
+    "ack": <slack_bolt.context.ack.ack.Ack object at 0x7f59c914eb90>,
+    "say": <slack_bolt.context.say.say.Say object at 0x7f59c914ebc0>,
+    "respond": <slack_bolt.context.respond.respond.Respond object at 0x7f59c914ecb0>,
+    "matches": ("in",)
+}

@@ -1,0 +1,28 @@
+{
+    "client_msg_id": "21ab29fb-facd-4af1-b6a9-fbe5d81b3bd4",
+    "type": "message",
+    "text": "Hello Everyone!",
+    "user": "U02NVERT65B",
+    "ts": "1662270851.835219",
+    "team": "T02NRMZN8NS",
+    "blocks": [
+        {
+            "type": "rich_text",
+            "block_id": "6PJE",
+            "elements": [
+                {
+                    "type": "rich_text_section",
+                    "elements": [
+                        {
+                            "type": "text",
+                            "text": "Hello Everyone!"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "channel": "C040J7YHWET",
+    "event_ts": "1662270851.835219",
+    "channel_type": "channel"
+}
