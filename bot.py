@@ -7,6 +7,10 @@ from datetime import date
 # import gspread
 
 # Initialization
+print('secret here ---------------------')
+print(os.environ.get("SLACK_BOT_TOKEN"))
+print(os.environ.get("SIGNING_SECRET"))
+
 app = App(
     token=os.environ.get("SLACK_BOT_TOKEN"),
     signing_secret=os.environ.get("SIGNING_SECRET")
@@ -21,7 +25,7 @@ register_listeners(app)
 
 
 if __name__ == '__main__':
-    app.start(port=int(os.environ.get("PORT", 80)))
+    app.start(port=int(os.environ.get("PORT", 5050)))
 
 # def user_info(user_id: Str, client: WebClient):
 #     try:
