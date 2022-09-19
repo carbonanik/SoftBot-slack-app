@@ -13,3 +13,4 @@ RUN pip install gspread
 RUN pip install python_graphql_client
 
 CMD [ "python","-u","/usr/src/app/bot.py" ]
+EXPOSE 80
