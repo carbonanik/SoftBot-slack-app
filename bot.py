@@ -4,7 +4,6 @@ import logging
 from slack_bolt import App
 from app.listeners import register_listeners
 from datetime import date
-# import gspread
 
 # Initialization
 print('secret here ---------------------')
@@ -16,10 +15,6 @@ app = App(
     signing_secret=os.environ.get("SIGNING_SECRET")
 )
 logging.basicConfig(level=logging.DEBUG)
-
-# gsc = gspread.service_account("service_account.json")
-# sh = gsc.open("Attendance Sheet")
-# wks = sh.worksheet("Current")
 
 register_listeners(app)
 
