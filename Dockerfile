@@ -6,12 +6,10 @@ ENV SLACK_BOT_TOKEN="xoxb-2773747756774-4018188491895-q6Ww4bylDL6D4ftBCUmAuFwg"
 ENV SIGNING_SECRET="987ef3ec051aa447531da8b708b2111e"
 ENV PORT=5050
 
-WORKDIR /usr/src/app 
+WORKDIR /usr/src/app
 
 COPY . /usr/src/app/
-RUN pip install slack_bolt
-RUN pip install gspread
-RUN pip install python_graphql_client
+RUN pip install -r requerment.txt
 
 CMD [ "python","-u","/usr/src/app/bot.py" ]
 EXPOSE 5050
