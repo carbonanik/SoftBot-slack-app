@@ -1,3 +1,4 @@
 .env
 *.pyc
 service_account.json
+/.vscode
