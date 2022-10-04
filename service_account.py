@@ -4,13 +4,13 @@ import os
 
 file = os.environ.get("SERVICE_ACCOUNT")
 jsons = json.loads(file)
-print(jsons['type'])
-sa = gspread.service_account_from_dict(jsons)
-sh = sa.open("Attendance Sheet")
-wks = sh.worksheet("Current")
+# print(jsons['type'])
+# sa = gspread.service_account_from_dict(jsons)
+# sh = sa.open("Attendance Sheet")
+# wks = sh.worksheet("Current")
 
-print("Row: ", wks.row_count)
-print("Col: ", wks.col_count)
+# print("Row: ", wks.row_count)
+# print("Col: ", wks.col_count)
 
 # print(wks.acell('A1').value)
 # print(wks.cell(col=3, row=6).value)
