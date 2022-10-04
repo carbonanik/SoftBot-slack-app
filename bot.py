@@ -22,6 +22,7 @@ register_listeners(app)
 if __name__ == '__main__':
     app.start(port=int(os.environ.get("PORT", 5050)))
 
+
 # def user_info(user_id: Str, client: WebClient):
 #     try:
 #         result = client.users_info(user=user_id)
