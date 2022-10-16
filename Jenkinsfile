@@ -8,7 +8,7 @@ pipeline {
                 '''
             }
         }
-        stage('start nginx') {
+        stage('stop nginx') {
             steps {
                 sh 'docker compose down'
             }
