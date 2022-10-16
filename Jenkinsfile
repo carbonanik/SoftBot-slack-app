@@ -8,16 +8,22 @@ pipeline {
                 '''
             }
         }
-        stage('stop nginx') {
+        stage('initializing') {
             steps {
-                sh 'docker compose down'
+                sh 'ls'
             }
         }
-        stage('start nginx') {
-            steps {
-                sh 'docker compose up --build'
-                sh 'docker compose ps'
-            }
-        }
+        
+        // stage('stop nginx') {
+        //     steps {
+        //         sh 'docker compose down'
+        //     }
+        // }
+        // stage('start nginx') {
+        //     steps {
+        //         sh 'docker compose up --build'
+        //         sh 'docker compose ps'
+        //     }
+        // }
     }
 }
