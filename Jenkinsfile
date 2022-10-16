@@ -10,6 +10,11 @@ pipeline {
         }
         stage('start nginx') {
             steps {
+                sh 'docker compose down'
+            }
+        }
+        stage('start nginx') {
+            steps {
                 sh 'docker compose up --build'
                 sh 'docker compose ps'
             }
