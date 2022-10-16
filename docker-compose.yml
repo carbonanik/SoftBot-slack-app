@@ -1,0 +1,14 @@
+services:
+    softbot:
+        build: .
+        restart: always
+        env_file:
+            - .env
+        networks:
+            - behind-nginx
+        container_name: softbot
+
+networks:
+    behind-nginx:
+        external:
+            name: behind-nginx-network
