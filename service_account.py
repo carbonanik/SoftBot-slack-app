@@ -2,11 +2,13 @@ import json
 import gspread
 import os
 
-file = os.environ.get("SERVICE_ACCOUNT")
-jsons = json.loads(file)
+# file = os.environ.get("SERVICE_ACCOUNT")
+# jsons = json.loads(file)
 
 # print(jsons['type'])
-sa = gspread.service_account_from_dict(jsons)
+# sa = gspread.service_account_from_dict(jsons)
+
+sa = gspread.service_account('service_account.json')
 sh = sa.open("Attendance Sheet")
 wks = sh.worksheet("Current")
 
