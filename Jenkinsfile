@@ -29,7 +29,7 @@ pipeline {
         }
         stage('check') {
             steps {
-                sh 'ls'
+                sh 'ls -a'
             }
         }
         // stage('start nginx') {
