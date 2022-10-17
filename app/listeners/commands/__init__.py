@@ -4,6 +4,7 @@ from .join_attendance import join_attendance
 from .create_task import create_task
 from .in_command import in_command
 from .out_command import out_command
+from .break_command import break_command
 
 
 def register(app: App):
@@ -11,3 +12,4 @@ def register(app: App):
     app.command("/add-task")(create_task)
     app.command("/in")(in_command)
     app.command("/out")(out_command)
+    app.command("/break")(break_command)
