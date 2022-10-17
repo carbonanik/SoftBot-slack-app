@@ -3,7 +3,7 @@ def take_a_break_modal():
         "title": {
             "type": "plain_text",
             "text": "Take a break",
-            "emoji": true
+            "emoji": True
         },
         "type": "modal",
         "blocks": [
@@ -25,7 +25,7 @@ def take_a_break_modal():
                         "text": {
                                 "type": "plain_text",
                                 "text": "5 min",
-                                        "emoji": true
+                                        "emoji": True
                         },
                         "style": "primary",
                         "value": "click_me_123"
@@ -42,7 +42,7 @@ def take_a_break_modal():
                         "text": {
                                 "type": "plain_text",
                                 "text": "10 min",
-                                        "emoji": true
+                                        "emoji": True
                         },
                         "style": "primary",
                         "value": "click_me_123"
@@ -59,7 +59,7 @@ def take_a_break_modal():
                         "text": {
                                 "type": "plain_text",
                                 "text": "20 min",
-                                        "emoji": true
+                                        "emoji": True
                         },
                         "style": "primary",
                         "value": "click_me_123"

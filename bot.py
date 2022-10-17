@@ -4,15 +4,19 @@ import logging
 from slack_bolt import App
 from app.listeners import register_listeners
 from datetime import date
+from dotenv import load_dotenv
 
 # Initialization
-print('secret here ---------------------')
-print(os.environ.get("SLACK_BOT_TOKEN"))
-print(os.environ.get("SIGNING_SECRET"))
+load_dotenv()
+print(os.getenv("PORT"))
+
+# print('secret here ---------------------')
+# print(os.getenv("SLACK_BOT_TOKEN"))
+# print(os.getenv("SIGNING_SECRET"))
 
 app = App(
-    token=os.environ.get("SLACK_BOT_TOKEN"),
-    signing_secret=os.environ.get("SIGNING_SECRET")
+    token=os.getenv("SLACK_BOT_TOKEN"),
+    signing_secret=os.getenv("SIGNING_SECRET")
 )
 logging.basicConfig(level=logging.DEBUG)
 
@@ -20,7 +24,7 @@ register_listeners(app)
 
 
 if __name__ == '__main__':
-    app.start(port=int(os.environ.get("PORT", 5050)))
+    app.start(port=int(os.getenv("PORT", 5050)))
 
 # def user_info(user_id: Str, client: WebClient):
 #     try:

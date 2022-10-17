@@ -3,7 +3,8 @@ import gspread
 import os
 from dotenv import load_dotenv
 
-# file = os.environ.get("SERVICE_ACCOUNT")
+# load_dotenv()
+# file = os.getenv("SERVICE_ACCOUNT")
 # jsons = json.loads(file)
 
 # print(jsons['type'])
@@ -12,8 +13,6 @@ from dotenv import load_dotenv
 sa = gspread.service_account('service_account.json')
 sh = sa.open("Attendance Sheet")
 wks = sh.worksheet("Current")
-load_dotenv()
-print(os.getenv("PORT"))
 
 
 # print("Row: ", wks.row_count)
