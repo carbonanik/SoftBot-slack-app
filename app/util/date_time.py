@@ -1,13 +1,14 @@
 from datetime import datetime
 from time import time
+from pytz import timezone
 
 
 def now_date_str():
-    d = datetime.now()
+    d = datetime.now(timezone('Asia/Dhaka'))
     return d.strftime("%Y-%m-%d")
 
 def now_time_str():
-    d = datetime.now()
+    d = datetime.now(timezone('Asia/Dhaka'))
     return d.strftime("%I:%M %p")
 
 # def date_str(date_obj):
