@@ -1,4 +1,4 @@
 slack_bolt
 gspread
 python_graphql_client
-dotenv
+python-dotenv
