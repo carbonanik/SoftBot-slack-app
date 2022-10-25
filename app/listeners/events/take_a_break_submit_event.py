@@ -51,7 +51,7 @@ def take_a_break_submit_event(ack: Ack, body: dict, client: WebClient, view, log
             wks.update(f'{col_letter[total_break_time_col]}{i+1}', time_delta_to_str(break_time), raw=False)
 
             client.chat_postMessage(
-                channel="#soft-bot",
+                channel="#attendance-beta",
                 blocks=you_are_on_break(name, f'{m[break_pac]} min')
             )
             break
@@ -65,7 +65,7 @@ def take_a_break_submit_event(ack: Ack, body: dict, client: WebClient, view, log
     # wks.update('E2', now_time_str(), raw=False)
 
     # client.chat_postMessage(
-    #     channel="#soft-bot",
+    #     channel="#attendance-beta",
     #     blocks=you_are_in(
     #         name=name,
     #         date=now_date_str(),

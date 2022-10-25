@@ -23,7 +23,7 @@
     "is_enterprise_install": false,
     "channel": {
         "id": "C040J7YHWET",
-        "name": "soft-bot"
+        "name": "attendance-beta"
     },
     "message": {
         "bot_id": "B040S4K565C",

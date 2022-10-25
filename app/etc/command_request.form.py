@@ -4,7 +4,7 @@
         ('team_id', 'T02NRMZN8NS'), 
         ('team_domain', 'carbonanik'), 
         ('channel_id', 'C040J7YHWET'), 
-        ('channel_name', 'soft-bot'), 
+        ('channel_name', 'attendance-beta'), 
         ('user_id', 'U02NVERT65B'), 
         ('user_name', 'shkhnk'), 
         ('command', '/join-attendance'), 

@@ -51,7 +51,7 @@ def out_command(ack: Ack, client: WebClient, body: dict, logger: Logger):
                 wks.update(f'{col_letter[total_hour_col]}{i+1}', total_str, raw=False)
 
                 client.chat_postMessage(
-                    channel="#soft-bot",
+                    channel="#attendance-beta",
                     blocks=you_are_out(
                         name=data[i][name_col],
                         date=now_date_str(local_tz),

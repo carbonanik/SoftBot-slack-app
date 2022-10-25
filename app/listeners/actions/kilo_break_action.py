@@ -19,7 +19,7 @@ def kilo_break_action(ack: Ack, client: WebClient, body: dict, say: Say, logger:
     name = user_info["real_name"] if user_info["real_name"] else user_info["name"]
 
     client.chat_postMessage(
-        channel="#soft-bot",
+        channel="#attendance-beta",
         blocks=you_are_on_break(name, '5 min')
     )
 
@@ -27,7 +27,7 @@ def kilo_break_action(ack: Ack, client: WebClient, body: dict, say: Say, logger:
     
 
     # say(
-    #     channel='#soft-bot',
+    #     channel='#attendance-beta',
     #     text='''{
     #         "response_action": "clear"
     #     }''')
