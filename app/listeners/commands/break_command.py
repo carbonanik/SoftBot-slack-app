@@ -22,5 +22,11 @@ def break_command(ack: Ack, client: WebClient, body: dict, logger: Logger):
             view=take_a_break_radio_select_modal()
         )
 
+        # slack_user_id = body["user"]["id"]
+        # print(body)
+
+        user_info = client.users_info(user=body['user_id'])
+        print(user_info['user']['tz'])
+
     except Exception as e:
         logger.error(e)
