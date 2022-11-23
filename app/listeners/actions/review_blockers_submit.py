@@ -11,10 +11,14 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
     ack()
     try:
         state = body['state']['values']
+        blocks = body['message']['blocks']
+        completed_tasks = list(filter(lambda b: b['block_id'].startswith('task-'), blocks))
+        tasks_ids = list(map(lambda c: int(c['block_id'].removeprefix('task-')), completed_tasks))
+
         slack_id = context["user_id"]
 
         print('Body ==>', body)
-
+        print('State ==>', state)
         if not state:
             return
 
@@ -33,16 +37,16 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
 
         print('attendance ==>', attendance)
 
-        tasks_ids = []
+        for task_id in tasks_ids:
+            db.task_update_ended_at(int(task_id))
 
         for s in state:
             if s.startswith('task-'):
                 task_id = s.removeprefix('task-')
-                tasks_ids.append(int(task_id))
                 task_review = state[s]['plain_text_input-action']['value']
 
-                db.task_update_ended_at(int(task_id))
-                db.insert_review(task_review, int(task_id), participant['id'])
+                if task_review:
+                    db.insert_review(task_review, int(task_id), participant['id'])
 
             elif s.startswith('project-'):
                 project_id = s.removeprefix('project-')
