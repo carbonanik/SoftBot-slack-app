@@ -14,7 +14,10 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
         state = body['state']['values']
         slack_id = context["user_id"]
 
-        print(state)
+        print('State ==>', state)
+
+        if not state:
+            return
 
         user_info = client.users_info(user=slack_id)["user"]
         name = user_info["real_name"] if user_info["real_name"] else user_info["name"]
@@ -24,12 +27,12 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
         db.connect_to_database()
         participant = db.get_participant_by_slack_id(slack_id)[0]
         attendance = db.get_attendance_by_participant_id_where_out_time_null(participant['id'])
-        if not attendance:
+        if attendance:
             attendance = attendance[0]
         else:
             return
 
-        print(attendance)
+        print('attendance ==>', attendance)
 
         tasks_ids = []
 
@@ -46,13 +49,18 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
                 project_id = s.removeprefix('project-')
                 project_blocker = state[s]['plain_text_input-action']['value']
 
-                db.insert_blocker(project_blocker, int(project_id), participant['id'])
+                if project_blocker:
+                    db.insert_blocker(project_blocker, int(project_id), participant['id'])
 
         updated_attendance = db.update_attendance_out_time_by_id(attendance['id'])[0]
         worked_time = updated_attendance['out_time'] - updated_attendance['in_time']
 
+        print('tasks ids ==>', tasks_ids)
         tasks = db.get_tasks_by_ids(tuple(tasks_ids))
+        print('tasks ==>', tasks)
+        print('project id ==>', tasks[0]['project_id'])
         project = db.get_project_by_id(tasks[0]['project_id'])[0]
+        print('project ==>', project)
 
         blocks = out_with_summery(
             name=name,
@@ -75,4 +83,3 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
 
     except Exception as e:
         logger.error(e)
-
