@@ -41,7 +41,7 @@ def start_message(context: BoltContext, client: WebClient, body: dict, say: Say,
             client.chat_postMessage(
                 channel=common_channel_id,
                 blocks=[
-                    mrkdwn_text(markdown="You have joined the attendance start by typing `in`")
+                    mrkdwn_text(markdown=f"{name} joined the attendance")
                 ],
                 user=slack_id
             )
