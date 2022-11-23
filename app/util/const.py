@@ -8,7 +8,7 @@ priority_low = 0
 priority_medium = 1
 priority_high = 2
 
-common_channel_id = 'C047Z9D3ADQ'
+common_channel_id = '#attendance-beta'
 
 
 # loacl_date_col = 0
