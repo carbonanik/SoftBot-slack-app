@@ -16,6 +16,9 @@ def select_completed_task_next_action(ack: Ack, body, client: WebClient, context
 
         all_visible_task = list(filter(lambda b: b['block_id'] == "task-to-mark", blocks))[0]['elements'][0]['options']
         selected_tasks: List = body['state']['values']['task-to-mark']['completed-task-select']['selected_options']
+        if not selected_tasks:
+            return
+
         unselected_tasks = [task for task in all_visible_task if task not in selected_tasks]
 
         project = None
