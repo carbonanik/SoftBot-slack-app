@@ -1,7 +1,6 @@
 from logging import Logger
 from slack_bolt import BoltContext, Ack
 from slack_sdk import WebClient
-from app.blocks.block.block import header
 from app.blocks.response.out_with_summery import out_with_summery
 from app.db.db import Database
 from app.util.const import common_channel_id
@@ -14,7 +13,7 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
         state = body['state']['values']
         slack_id = context["user_id"]
 
-        print('State ==>', state)
+        print('Body ==>', body)
 
         if not state:
             return
