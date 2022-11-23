@@ -19,8 +19,6 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
 
         print('Body ==>', body)
         print('State ==>', state)
-        if not state:
-            return
 
         user_info = client.users_info(user=slack_id)["user"]
         name = user_info["real_name"] if user_info["real_name"] else user_info["name"]
