@@ -7,6 +7,7 @@ from slack_bolt.adapter.socket_mode import SocketModeHandler
 from app.listeners import register_listeners
 
 load_dotenv()
+print(os.getenv("SLACK_BOT_TOKEN"))
 
 app = App(
     token=os.getenv("SLACK_BOT_TOKEN"),
@@ -37,4 +38,4 @@ def show_random_joke(message, say):
 
 if __name__ == '__main__':
     handler = SocketModeHandler(app, os.getenv("SLACK_BOT_APP_LEVEL_TOKEN"))
-    handler.start() #port=int(os.getenv("PORT", 5050))
+    handler.start()
