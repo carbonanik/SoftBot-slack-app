@@ -23,7 +23,12 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
         db = Database()
         db.connect_to_database()
         participant = db.get_participant_by_slack_id(slack_id)[0]
-        attendance = db.get_attendance_by_participant_id_where_out_time_null(participant['id'])[0]
+        attendance = db.get_attendance_by_participant_id_where_out_time_null(participant['id'])
+        if not attendance:
+            attendance = attendance[0]
+        else:
+            return
+
         print(attendance)
 
         tasks_ids = []
