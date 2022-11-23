@@ -1,11 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('verifing') {
+        stage('verifying') {
             steps {
-                sh '''
-                docker version
-                '''
+                sh 'docker version'
             }
         }
         stage('stop softbot') {
@@ -24,9 +22,9 @@ pipeline {
                 sh 'ls -a'
             }
         }
-        stage('start nginx') {
+        stage('start softbot') {
             steps {
-                sh 'docker compose up --build'
+                sh 'docker compose up -d --build'
                 sh 'docker compose ps'
             }
         }

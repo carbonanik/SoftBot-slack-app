@@ -4,8 +4,8 @@ from logging import Logger
 from slack_bolt import Ack, Say
 from slack_sdk import WebClient
 
-from app.gql.graph_ql_service import GraphQLService
-from app.gql.user_query import insertUserMutationStr
+# from app.gql.graph_ql_service import GraphQLService
+# from app.gql.user_query import insertUserMutationStr
 
 
 def join_form_submit(ack: Ack, client: WebClient, body: dict, say: Say, logger: Logger):

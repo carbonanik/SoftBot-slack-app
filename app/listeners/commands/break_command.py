@@ -2,10 +2,11 @@ from slack_bolt import Ack
 from logging import Logger
 from slack_sdk import WebClient
 
-from app.blocks.loading_modal import loading_modal
-from app.blocks.create_in_entry_modal import create_in_entry_modal
-from app.blocks.take_a_break_radio_select_modal import take_a_break_radio_select_modal
+from app.blocks.modals.individual_break_modal import individual_break_modal
+from app.blocks.modals.loading_modal import loading_modal
+from app.blocks.modals.create_in_entry_modal import create_in_entry_modal
 from app.blocks.time_modal import time_modal
+
 
 def break_command(ack: Ack, client: WebClient, body: dict, logger: Logger):
     try:
@@ -19,14 +20,14 @@ def break_command(ack: Ack, client: WebClient, body: dict, logger: Logger):
         client.views_update(
             view_id=loading_modal_response["view"]["id"],
             hash=loading_modal_response["view"]["hash"],
-            view=take_a_break_radio_select_modal()
+            view=individual_break_modal()
         )
 
         # slack_user_id = body["user"]["id"]
         # print(body)
 
-        user_info = client.users_info(user=body['user_id'])
-        print(user_info['user']['tz'])
+        # user_info = client.users_info(user=body['user_id'])
+        # print(user_info['user']['tz'])
 
     except Exception as e:
         logger.error(e)

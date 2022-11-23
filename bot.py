@@ -1,35 +1,40 @@
-import os
 import logging
+import os
 
-from slack_bolt import App
-from app.listeners import register_listeners
-from datetime import date
 from dotenv import load_dotenv
+from slack_bolt import App
+from slack_bolt.adapter.socket_mode import SocketModeHandler
+from app.listeners import register_listeners
 
-# Initialization
 load_dotenv()
-print(os.getenv("PORT"))
-
-# print('secret here ---------------------')
-# print(os.getenv("SLACK_BOT_TOKEN"))
-# print(os.getenv("SIGNING_SECRET"))
 
 app = App(
     token=os.getenv("SLACK_BOT_TOKEN"),
     signing_secret=os.getenv("SIGNING_SECRET")
 )
-logging.basicConfig(level=logging.DEBUG)
+
+logging.basicConfig(level=logging.ERROR)
 
 register_listeners(app)
 
 
-if __name__ == '__main__':
-    app.start(port=int(os.getenv("PORT", 5050)))
+@app.message("joke")  # type: ignore
+def show_random_joke(message, say):
+    print("got message")
+    """Send a random pyjoke back"""
+    channel_type = message["channel_type"]
+    if channel_type != "im":
+        return
 
-# def user_info(user_id: Str, client: WebClient):
-#     try:
-#         result = client.users_info(user=user_id)
-#         # print(result)
-#         return result
-#     except SlackApiError as e:
-#         logger.error("Error fetching conversations: {}".format(e))
+    dm_channel = message["channel"]
+    user_id = message["user"]
+
+    # joke = pyjokes.get_joke()
+    # logger.info(f"Sent joke < {joke} > to user {user_id}")
+
+    say(text='joke', channel=dm_channel)
+
+
+if __name__ == '__main__':
+    handler = SocketModeHandler(app, os.getenv("SLACK_BOT_APP_LEVEL_TOKEN"))
+    handler.start() #port=int(os.getenv("PORT", 5050))

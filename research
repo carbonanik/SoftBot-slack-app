@@ -1,0 +1,27 @@
+
+
+
+left side color line -------
+
+{
+	"attachments": [
+		{
+			"color": "#f2c744",
+			"blocks": [
+				{
+					"type": "section",
+					"text": {
+						"type": "mrkdwn",
+						"text": "*Present* \n\n👤Name\n👤Name\n\n "
+					}
+				}
+			]
+		}
+	]
+}
+
+---- token type
+https://api.slack.com/authentication/token-types#granular_bot
+
+
+--- for updating and deleting message user channel id

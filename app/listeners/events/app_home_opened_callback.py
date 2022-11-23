@@ -1,7 +1,7 @@
 from app.blocks.app_home_tab import app_home_tab
 from app.blocks.home.not_completed_task_item import not_completed_task_item
-from app.gql.graph_ql_service import GraphQLService
-from app.gql.task_query import get_all_task
+# from app.gql.graph_ql_service import GraphQLService
+# from app.gql.task_query import get_all_task
 
 
 def app_home_opened_callback(client, event, logger):

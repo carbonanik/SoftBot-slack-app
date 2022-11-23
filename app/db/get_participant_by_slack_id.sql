@@ -1,0 +1,1 @@
+SELECT * FROM participant WHERE slack_id=%s;

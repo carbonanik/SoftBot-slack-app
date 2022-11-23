@@ -1,0 +1,33 @@
+// database
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// generator
+generator client {
+  provider             = "prisma-client-py"
+  //recursive_type_depth = 5
+}
+
+model attendance {
+  id         Int       @id @default(autoincrement())
+  name       String
+  slackId    String
+  tasks      String[]
+  inTime     DateTime
+  outTime    DateTime?
+  workedSec  Int?
+  onBreak    Boolean   @default(false)
+  takenBreak Break[]
+}
+
+model Break {
+  id           Int        @id @default(autoincrement())
+  attendance   attendance @relation(fields: [attendanceId], references: [id])
+  attendanceId Int        @unique
+  breakLength  Int
+  started      DateTime
+  ended        DateTime?
+  extraTime    Int        @default(0)
+}

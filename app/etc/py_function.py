@@ -1,12 +1,9 @@
-from datetime import datetime
 
 
+def my_fun(*args):
+    print("hello world", args)
 
-time_str = '10:16:00 AM'
 
-time_obj = datetime.strptime(time_str, '%I:%M:%S %p')
+my_fun("abc", 19)
 
-spend = datetime.now() - time_obj
-
-print(spend)
 

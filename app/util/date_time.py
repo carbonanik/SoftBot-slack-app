@@ -14,13 +14,16 @@ def now_time_str(tz):
     d = datetime.now(timezone(tz))
     return d.strftime("%I:%M %p")
 
+
 def calculate_total_hour(in_time, tz):
     time_in = time_str_to_time(in_time)
     difference = time_str_to_time(now_time_str(tz)) - time_in
     return difference
 
+
 def time_str_to_time(t):
     return datetime.strptime(t, '%I:%M %p')
+
 
 def time_delta_to_str(td):
     hours, remainder = divmod(td.seconds, 3600)
@@ -29,7 +32,9 @@ def time_delta_to_str(td):
     time_str = f'{hours}h {minutes}m'
     return time_str
 
+
 regex = re.compile(r'((?P<hours>\d+?)h) ((?P<minutes>\d+?)m)')
+
 
 def parse_time(time_str):
     parts = regex.match(time_str)
@@ -60,4 +65,4 @@ def parse_time(time_str):
 # print(time_obj)
 # print(now_time)
 # print(total_hour)
-#============================================================================+++++++++++
+# ============================================================================+++++++++++

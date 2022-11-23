@@ -4,12 +4,12 @@ from logging import Logger
 from slack_sdk import WebClient
 from datetime import date
 
-from app.blocks.loading_modal import loading_modal
+from app.blocks.modals.loading_modal import loading_modal
 from app.blocks.did_not_joined_modal import did_not_joined_madal
 from app.blocks.create_task_modal import create_task_modal
 
-from app.gql.graph_ql_service import GraphQLService
-from app.gql.user_query import getUserBySlackUserId
+# from app.gql.graph_ql_service import GraphQLService
+# from app.gql.user_query import getUserBySlackUserId
 
 
 def create_task(ack: Ack, client: WebClient, body: dict, logger: Logger):
@@ -33,22 +33,22 @@ def create_task(ack: Ack, client: WebClient, body: dict, logger: Logger):
 
         user_id = body['user_id']
 
-        q, v = getUserBySlackUserId(slackUserId=user_id)
-        a_user = GraphQLService().preformQuery(query=q, variables=v)
+        # q, v = getUserBySlackUserId(slackUserId=user_id)
+        # a_user = GraphQLService().preformQuery(query=q, variables=v)
 
-        if a_user["data"]["user"] == []:
-            client.views_update(
-                view_id=view_open_response["view"]["id"],
-                hash=view_open_response["view"]["hash"],
-                view=did_not_joined_madal()
-            )
+        # if a_user["data"]["user"] == []:
+        #     client.views_update(
+        #         view_id=view_open_response["view"]["id"],
+        #         hash=view_open_response["view"]["hash"],
+        #         view=did_not_joined_madal()
+        #     )
 
-        else:
-            client.views_update(
-                view_id=view_open_response["view"]["id"],
-                hash=view_open_response["view"]["hash"],
-                view=create_task_modal(full_date)
-            )
+        # else:
+        #     client.views_update(
+        #         view_id=view_open_response["view"]["id"],
+        #         hash=view_open_response["view"]["hash"],
+        #         view=create_task_modal(full_date)
+        #     )
 
     except Exception as e:
         logger.error(e)

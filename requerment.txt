@@ -1,5 +1,0 @@
-slack_bolt
-gspread
-python_graphql_client
-python-dotenv
-pytz

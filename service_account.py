@@ -1,7 +1,7 @@
-import json
-import gspread
-import os
-from dotenv import load_dotenv
+# import json
+# import gspread
+# import os
+# from dotenv import load_dotenv
 
 # load_dotenv()
 # file = os.getenv("SERVICE_ACCOUNT")
@@ -10,10 +10,9 @@ from dotenv import load_dotenv
 # print(jsons['type'])
 # sa = gspread.service_account_from_dict(jsons)
 
-sa = gspread.service_account('service_account.json')
-sh = sa.open("Attendance Sheet")
-wks = sh.worksheet("Current")
-
+# sa = gspread.service_account('service_account.json')
+# sh = sa.open("Attendance Sheet")
+# wks = sh.worksheet("Current")
 
 # print("Row: ", wks.row_count)
 # print("Col: ", wks.col_count)

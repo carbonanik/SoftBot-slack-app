@@ -3,9 +3,9 @@ LABEL Maintainer="CarbonAnik"
 
 WORKDIR /usr/src/app
 
-COPY requerment.txt requerment.txt
+COPY requirements.txt requerment.txt
 
-RUN pip install -r requerment.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 
