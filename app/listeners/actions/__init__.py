@@ -1,4 +1,6 @@
 from slack_bolt import App
+
+from .individual_break_select import individual_break_select
 from .join_form_submit_actions import join_form_submit
 from .test_button_click import test_button_click
 from .select_project_action import select_project_action
@@ -20,3 +22,4 @@ def register(app: App):
     app.action("select-completed-task-next")(select_completed_task_next_action)
     app.action("completed-task-select")(completed_task_select)
     app.action("review-blockers-submit")(review_blockers_submit)
+    app.action("individual_break_select")(individual_break_select)

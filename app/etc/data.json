@@ -1,108 +1,114 @@
 {
     "type": "block_actions",
     "user": {
-        "id": "U03N9KY285A",
+        "id": "U02NVERT65B",
         "username": "shkhnk",
         "name": "shkhnk",
-        "team_id": "T032R570L6S"
+        "team_id": "T02NRMZN8NS"
     },
-    "api_app_id": "A047XH9UFA6",
-    "token": "TcMRHsBsKbewEYqI8zUnmqZr",
+    "api_app_id": "A041B86RPKK",
+    "token": "WhZeL8jaksq091eEOcIbXt8Z",
     "container": {
         "type": "message",
-        "message_ts": "1669210374.857219",
-        "channel_id": "D048M93Q6KS",
+        "message_ts": "1669535419.443409",
+        "channel_id": "D040YNFKT7U",
         "is_ephemeral": false
     },
-    "trigger_id": "4400594137687.3093177020230.c305ac4884e8bff7970cb4c566a9df7c",
+    "trigger_id": "4428626814099.2773747756774.b2260d64b01b6a1142ba28418a0603b2",
     "team": {
-        "id": "T032R570L6S",
-        "domain": "klwebco"
+        "id": "T02NRMZN8NS",
+        "domain": "carbonanik"
     },
     "enterprise": null,
     "is_enterprise_install": false,
     "channel": {
-        "id": "D048M93Q6KS",
+        "id": "D040YNFKT7U",
         "name": "directmessage"
     },
     "message": {
-        "bot_id": "B047H1UGAP9",
+        "bot_id": "B040S4K565C",
         "type": "message",
         "text": "This content can't be displayed.",
-        "user": "U048A79CNQ1",
-        "ts": "1669210374.857219",
-        "app_id": "A047XH9UFA6",
+        "user": "U040J5JEFSB",
+        "ts": "1669535419.443409",
+        "app_id": "A041B86RPKK",
         "blocks": [
             {
-                "type": "header",
-                "block_id": "ENj",
-                "text": {
-                    "type": "plain_text",
-                    "text": "Write your feedback on completed task",
-                    "emoji": true
-                }
-            },
-            {
                 "type": "input",
-                "block_id": "task-48",
+                "block_id": "individual_break_radio",
                 "label": {
                     "type": "plain_text",
-                    "text": "a Review",
+                    "text": "\u2705 Seletc a break you need",
                     "emoji": true
                 },
                 "optional": false,
                 "dispatch_action": false,
                 "element": {
-                    "type": "plain_text_input",
-                    "action_id": "plain_text_input-action",
-                    "dispatch_action_config": {
-                        "trigger_actions_on": [
-                            "on_enter_pressed"
-                        ]
-                    }
-                }
-            },
-            {
-                "type": "actions",
-                "block_id": "review-blockers-submit",
-                "elements": [
-                    {
-                        "type": "button",
-                        "action_id": "review-blockers-submit",
-                        "text": {
-                            "type": "plain_text",
-                            "text": ":radio_button: Submit",
-                            "emoji": true
+                    "type": "radio_buttons",
+                    "action_id": "individual_break_select",
+                    "options": [
+                        {
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "30 minutes break \u2615",
+                                "verbatim": false
+                            },
+                            "value": "1"
                         },
-                        "style": "primary",
-                        "value": "submit"
-                    }
-                ]
+                        {
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "1 hour break \ud83d\udecf\ufe0f",
+                                "verbatim": false
+                            },
+                            "value": "2"
+                        },
+                        {
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "2 hour emergency break \ud83d\ude91",
+                                "verbatim": false
+                            },
+                            "value": "3"
+                        }
+                    ]
+                }
             }
         ],
-        "team": "T032R570L6S",
-        "edited": {
-            "user": "B047H1UGAP9",
-            "ts": "1669210381.000000"
-        }
+        "team": "T02NRMZN8NS"
     },
     "state": {
-        "values": {}
+        "values": {
+            "individual_break_radio": {
+                "individual_break_select": {
+                    "type": "radio_buttons",
+                    "selected_option": {
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": "30 minutes break \u2615",
+                            "verbatim": false
+                        },
+                        "value": "1"
+                    }
+                }
+            }
+        }
     },
-    "response_url": "https://hooks.slack.com/actions/T032R570L6S/4427776132193/3IvFsGfmqkXYhnR0eur1vpZz",
+    "response_url": "https://hooks.slack.com/actions/T02NRMZN8NS/4452432908912/HRXdGNfALcslYfQXKRXC02Yu",
     "actions": [
         {
-            "action_id": "review-blockers-submit",
-            "block_id": "review-blockers-submit",
-            "text": {
-                "type": "plain_text",
-                "text": ":radio_button: Submit",
-                "emoji": true
+            "action_id": "individual_break_select",
+            "block_id": "individual_break_radio",
+            "selected_option": {
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "30 minutes break \u2615",
+                    "verbatim": false
+                },
+                "value": "1"
             },
-            "value": "submit",
-            "style": "primary",
-            "type": "button",
-            "action_ts": "1669210601.182587"
+            "type": "radio_buttons",
+            "action_ts": "1669540863.628367"
         }
     ]
 }

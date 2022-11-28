@@ -13,9 +13,6 @@ def start_message(context: BoltContext, client: WebClient, body: dict, say: Say,
         channel_id: str = context['channel_id']
         is_dm = channel_id.startswith("D")
 
-        # print(channel_id)
-        # print(is_dm)
-
         if not is_dm:
             return
 
@@ -30,22 +27,7 @@ def start_message(context: BoltContext, client: WebClient, body: dict, say: Say,
         db.connect_to_database()
         inserted = db.insert_participant(slack_id, name, email, phone, designation)
 
-        if inserted:
-            client.chat_postMessage(
-                channel=context['channel_id'],
-                blocks=[
-                    mrkdwn_text(markdown="You have joined the attendance start by typing `in`")
-                ],
-                user=slack_id
-            )
-            client.chat_postMessage(
-                channel=common_channel_id,
-                blocks=[
-                    mrkdwn_text(markdown=f"{name} joined the attendance")
-                ],
-                user=slack_id
-            )
-        else:
+        if not inserted:
             client.chat_postMessage(
                 channel=context['channel_id'],
                 blocks=[
@@ -53,8 +35,22 @@ def start_message(context: BoltContext, client: WebClient, body: dict, say: Say,
                 ],
                 user=slack_id
             )
+            return
 
-        # print(user_info)
+        client.chat_postMessage(
+            channel=context['channel_id'],
+            blocks=[
+                mrkdwn_text(markdown="You have joined the attendance start by typing `in`")
+            ],
+            user=slack_id
+        )
+        client.chat_postMessage(
+            channel=common_channel_id,
+            blocks=[
+                mrkdwn_text(markdown=f"{name} joined the attendance")
+            ],
+            user=slack_id
+        )
 
     except Exception as e:
         logger.error(e)

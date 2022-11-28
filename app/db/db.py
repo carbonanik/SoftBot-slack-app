@@ -1,24 +1,37 @@
+import os
+
 import psycopg2
 import sys
 from functools import wraps
 
-DB_NAME = "softbot"
-DB_USER = "postgres"
-DB_PASS = "password"
-DB_HOST = "143.244.169.231"
-DB_PORT = "5432"
+from dotenv import load_dotenv
 
+
+# DB_NAME = "softbot"
+# DB_USER = "postgres"
+# DB_PASS = "password"
+# DB_HOST = "143.244.169.231"
+# DB_PORT = "5432"
+
+# load_dotenv()
+# DB_NAME = os.getenv('DB_NAME', "softbot")
+# DB_USER = os.getenv('DB_USER', "postgres")
+# DB_PASS = os.getenv('DB_PASS', "password")
+# DB_HOST = os.getenv('DB_HOST', "143.244.169.231")
+# DB_PORT = os.getenv('DB_PORT', "5432")
+
+# postgres://postgres:password@143.244.169.231:5432/explore_prisma
 
 def decorator_function(original_function):
     @wraps(original_function)
     def wrapper(self, *args, **kwargs):
         print(args)
 
-        def execute(q):
+        def execute(sql):
             dict_array = []
             try:
                 cur = self.conn.cursor()
-                cur.execute(q, args)
+                cur.execute(sql, args)
 
                 try:
                     rows = cur.fetchall()
@@ -50,6 +63,12 @@ class Database:
         # self.connect_to_database()
 
     def connect_to_database(self):
+        load_dotenv()
+        DB_NAME = os.getenv('DB_NAME', "softbot")
+        DB_USER = os.getenv('DB_USER', "postgres")
+        DB_PASS = os.getenv('DB_PASS', "password")
+        DB_HOST = os.getenv('DB_HOST', "143.244.169.231")
+        DB_PORT = os.getenv('DB_PORT', "5432")
         try:
             self.conn = psycopg2.connect(
                 database=DB_NAME,
@@ -80,11 +99,20 @@ class Database:
 
     @decorator_function
     def insert_attendance(self, execute, participant_id):
-        return execute("INSERT INTO attendance (in_time, on_break, participant_id) VALUES (NOW(), false, %s) RETURNING *;")
+        return execute(
+            "INSERT INTO attendance (in_time, on_break, participant_id) VALUES (NOW(), false, %s) RETURNING *;")
 
     @decorator_function
     def get_attendance_by_participant_id_where_out_time_null(self, execute, participant_id):
         return execute("SELECT * FROM attendance WHERE participant_id=%s AND out_time IS NULL;")
+
+    @decorator_function
+    def get_last_attendance_where_not_out(self, execute, participant_id):
+        return execute("""
+            SELECT * FROM attendance 
+            WHERE participant_id=%s AND out_time IS NULL 
+            ORDER BY in_time DESC LIMIT 1;
+        """)
 
     @decorator_function
     def update_attendance_out_time_by_id(self, execute, attendance_id):
@@ -96,7 +124,7 @@ class Database:
 
     @decorator_function
     def all_attendance_of_today_with_joined_tasks(self, execute):
-        return execute(open("app/db/all_attendance_of_today_with_joined_tasks.sql", "r").read())#app/db/
+        return execute(open("app/db/all_attendance_of_today_with_joined_tasks.sql", "r").read())  # app/db/
 
     # out command
     @decorator_function
@@ -120,6 +148,26 @@ class Database:
     @decorator_function
     def insert_break_if_possible(self, execute, slack_id, break_length):
         return execute("SELECT * FROM inset_break_if_possible(%s, %s);")
+
+    @decorator_function
+    def insert_break(self, execute, length, attendance_id):
+        return execute("""
+            INSERT INTO break_ (break_length, started, attendance_id) 
+            VALUES (%s, NOW(), %s);
+        """)
+
+    @decorator_function
+    def get_not_ended_break(self, execute, attendance_id):
+        return execute("""
+            SELECT * FROM break_ 
+            WHERE attendance_id=%s AND NOT (
+                ended IS NOT NULL OR NOW() > started + break_length
+            );
+        """)
+
+    @decorator_function
+    def update_ended_in_break(self, execute, break_id):
+        return execute('UPDATE break_ SET ended=now() WHERE id=%s RETURNING *;')
 
     # individual break ended command
     @decorator_function
@@ -229,7 +277,6 @@ class Database:
         return execute("""SELECT DISTINCT project.* FROM task 
 INNER JOIN project ON task.project_id=project.id WHERE task.id IN %s;""")
 
-
     # --------------------------- review
     @decorator_function
     def insert_review(self, execute, description, task_id, participant_id):
@@ -246,7 +293,6 @@ INNER JOIN project ON task.project_id=project.id WHERE task.id IN %s;""")
         return execute('INSERT INTO "_attendanceTotask" ("A", "B") VALUES (%s, %s);')
 
 
-# db = Database()
-# db.connect_to_database()
-# print(db.get_tasks_by_ids((30, 31)))
-
+db = Database()
+db.connect_to_database()
+print(db.get_tasks_by_ids((30, 31)))

@@ -11,12 +11,8 @@ from app.db.db import Database
 def in_message(context: BoltContext, client: WebClient, body: dict, say: Say, logger: Logger):
     try:
         slack_id = body["event"]["user"]
-
         channel_id: str = context['channel_id']
         is_dm = channel_id.startswith("D")
-
-        # print(channel_id)
-        # print(is_dm)
 
         if not is_dm:
             return
@@ -25,28 +21,28 @@ def in_message(context: BoltContext, client: WebClient, body: dict, say: Say, lo
         db.connect_to_database()
         participant = db.get_participant_by_slack_id(slack_id)
 
-        if participant:
-            projects = db.get_projects()
-            project_arr_dict = []
-
-            for p in projects:
-                project_arr_dict.append({"text": p["title"], "value": str(p["id"])})
-
-            if project_arr_dict:
-                client.chat_postMessage(
-                    channel=context['channel_id'],
-                    blocks=select_project(projects=project_arr_dict)
-                )
-            else:
-                client.chat_postMessage(
-                    channel=context['channel_id'],
-                    blocks=[mrkdwn_text(markdown="No Project have been created")]
-                )
-        else:
+        if not participant:
             client.chat_postMessage(
                 channel=context['channel_id'],
                 blocks=[mrkdwn_text(markdown="To participate in attendance write `start`")]
             )
+            return
+
+        projects = db.get_projects()
+
+        if not projects:
+            client.chat_postMessage(
+                channel=context['channel_id'],
+                blocks=[mrkdwn_text(markdown="No Project have been created")]
+            )
+            return
+
+        project_arr_dict = list(map(lambda p: {"text": p["title"], "value": str(p["id"])}, projects))
+
+        client.chat_postMessage(
+            channel=context['channel_id'],
+            blocks=select_project(projects=project_arr_dict)
+        )
 
     except Exception as e:
         logger.error(e)
