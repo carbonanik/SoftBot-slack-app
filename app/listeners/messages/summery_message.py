@@ -70,6 +70,11 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
         if not absent_list:
             absent_list.append('No one absent')
 
+        print('present_list ==> ', present_list)
+        print('absent_list ==> ', absent_list)
+        print('delayed_list ==> ', delayed_list)
+        print('project_task ==> ', project_task)
+
         client.chat_postMessage(
             channel=context['channel_id'],
             blocks=daily_summery(
