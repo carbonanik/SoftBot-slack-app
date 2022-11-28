@@ -16,20 +16,30 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
         db.connect_to_database()
 
         participants: List = db.get_all_participant()
+        print('participants ==> ', participants)
         attendances: List = db.get_last_attendance_of_day(date.today())
         attendance_ids = tuple(map(lambda a: a['id'], attendances))
+        print('attendance_ids ==> ', attendance_ids)
         tasks = db.get_tasks_by_attendance_ids(attendance_ids)
         tasks_ids = tuple(map(lambda t: t['id'], tasks))
+        print('task_ids ==> ', tasks_ids)
         projects = db.get_project_by_task_ids(tasks_ids)
+
+        print('projects ==> ', projects)
 
         project_task = []
 
         for project in projects:
             tasks_of_project = list(filter(lambda t: t['project_id'] == project['id'], tasks))
+            print('project ==> ', project)
+            print('task_of_project ==> ', tasks_of_project)
+
             project_task.append({
                 "project": project['title'],
                 "tasks": list(map(lambda t: t['title'], tasks_of_project))
             })
+
+        print('project task ==> ',project_task)
 
         present_list = []
         absent_list = []
