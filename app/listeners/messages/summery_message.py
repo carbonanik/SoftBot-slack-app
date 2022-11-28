@@ -18,6 +18,7 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
         participants: List = db.get_all_participant()
         print('participants ==> ', participants)
         attendances: List = db.get_last_attendance_of_day(date.today())
+        print('attendance  ==> ', attendances)
         attendance_ids = tuple(map(lambda a: a['id'], attendances))
         print('attendance_ids ==> ', attendance_ids)
         tasks = db.get_tasks_by_attendance_ids(attendance_ids)
@@ -39,7 +40,7 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
                 "tasks": list(map(lambda t: t['title'], tasks_of_project))
             })
 
-        print('project task ==> ',project_task)
+        print('project task ==> ', project_task)
 
         present_list = []
         absent_list = []
@@ -48,9 +49,13 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
         bangladesh_timezone = 'Asia/Dhaka'
 
         for participant in participants:
-            attend = list(filter(lambda a: a['participant_id'] == participant['id'], attendances))[0]
+            print('working for  ==> ', participant['id'])
+            attend = list(filter(lambda a: a['participant_id'] == participant['id'], attendances))
+            print('worked for  ==> ', participant['id'])
+            print('attend ==> ', attend)
             if attend:
-                in_time = attend['in_time']
+                in_time = attend[0]['in_time']
+                print('in_time ==> ', in_time)
 
                 in_time = in_time.replace(tzinfo=utc)
                 in_time = in_time.astimezone(timezone(bangladesh_timezone))
@@ -60,7 +65,7 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
                 else:
                     present_list.append(participant['name'])
             else:
-                print(participant['id'] == attend["participant_id"])
+                print(participant['id'] == attend[0]["participant_id"])
                 absent_list.append(participant['name'])
 
         if not present_list:
@@ -88,3 +93,26 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
 
     except Exception as e:
         logger.error(e)
+
+
+# v = [
+#     {
+#         'id': 5, 'created_at': datetime.datetime(2022, 11, 23, 11, 25, 22, 966000),
+#         'updated_at': datetime.datetime(2022, 11, 23, 11, 25, 22, 966000), 'slack_id': 'U03N9KY285A',
+#         'name': 'Sheikh Anik', 'email': 'shkhnk@gmail.com', 'phone': '', 'designation': ''
+#     },
+#     {
+#         'id': 6, 'created_at': datetime.datetime(2022, 11, 23, 11, 30, 36, 353000),
+#         'updated_at': datetime.datetime(2022, 11, 23, 11, 30, 36, 353000), 'slack_id': 'U036V8AS4JK',
+#         'name': 'jaminur islam', 'email': 'jaminurislam350@gmail.com', 'phone': '', 'designation': ''
+#     },
+#     {
+#         'id': 7, 'created_at': datetime.datetime(2022, 11, 28, 6, 18, 50, 14000),
+#         'updated_at': datetime.datetime(2022, 11, 28, 6, 18, 50, 14000), 'slack_id': 'U033MHHG8G0',
+#         'name': 'Hasan Al Asim', 'email': 'alasim.mail@gmail.com', 'phone': '', 'designation': ''
+#     }
+# ]
+#
+# attendance_ids == > (45,)
+#
+# attend = list(filter(lambda a: a['participant_id'] == participant['id'], attendances))[0]
