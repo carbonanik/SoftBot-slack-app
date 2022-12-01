@@ -1,5 +1,6 @@
-from pytz import timezone, all_timezones
 from datetime import datetime
+
+from pytz import timezone
 
 # for zone in all_timezones:
 #     if zone.find('PDT') != -1:

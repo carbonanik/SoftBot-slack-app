@@ -260,6 +260,14 @@ class Database:
         return execute(open("app/db/get_participant_by_slack_id.sql", "r").read())
 
     # ----------------------------- project
+
+    @decorator_function
+    def insert_project(self, execute, title, description, participant_id):
+        return execute('''
+            insert into project (started_at, title, description, participant_id)
+            values (now(), %s, %s, %s) returning *;
+        ''')
+
     @decorator_function
     def get_projects(self, execute):
         return execute("SELECT * FROM project;")
@@ -269,13 +277,19 @@ class Database:
         return execute("SELECT * FROM project WHERE id=%s;")
 
     @decorator_function
+    def get_projects_by_ids(self, execute, project_ids):
+        return execute('SELECT * FROM project WHERE id IN %s;')
+
+    @decorator_function
     def get_project_by_task_id(self, execute, task_id):
         return execute("SELECT project.* FROM task INNER JOIN project ON task.project_id=project.id WHERE task.id=%s;")
 
     @decorator_function
     def get_project_by_task_ids(self, execute, task_ids):
-        return execute("""SELECT DISTINCT project.* FROM task 
-INNER JOIN project ON task.project_id=project.id WHERE task.id IN %s;""")
+        return execute('''
+            SELECT DISTINCT project.* FROM task 
+            INNER JOIN project ON task.project_id=project.id WHERE task.id IN %s;
+        ''')
 
     # --------------------------- review
     @decorator_function
@@ -287,12 +301,17 @@ INNER JOIN project ON task.project_id=project.id WHERE task.id IN %s;""")
     def insert_blocker(self, execute, description, project_id, participant_id):
         return execute("INSERT INTO blocker (description, project_id, participant_id) VALUES (%s, %s, %s);")
 
+    @decorator_function
+    def get_blockers(self, execute):
+        return execute('SELECT * FROM blocker;')
+
     # ---------------------------- attendance_to_task
     @decorator_function
     def insert_relation_attendance_to_task(self, execute, attendance_id, task_id):
         return execute('INSERT INTO "_attendanceTotask" ("A", "B") VALUES (%s, %s);')
 
 
-db = Database()
-db.connect_to_database()
-print(db.get_tasks_by_ids((30, 31)))
+# db = Database()
+# db.connect_to_database()
+# print(db.get_tasks_by_ids((30, 31)))
+# db.get_projects_by_ids()

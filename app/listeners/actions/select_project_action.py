@@ -1,7 +1,7 @@
 from logging import Logger
 from slack_bolt import BoltContext, Ack
 from slack_sdk import WebClient
-from app.blocks.interactive.select_and_add_task import select_and_add_task
+from app.blocks.interactive.and_and_select_task_blocks import add_and_select_task_blocks
 from app.db.db import Database
 
 
@@ -26,7 +26,7 @@ def select_project_action(ack: Ack, body, client: WebClient, context: BoltContex
         for t in uncompleted_task:
             tasks.append({"text": t["title"], "value": str(t["id"])})
 
-        select_task = select_and_add_task(
+        select_task = add_and_select_task_blocks(
             project=project_name,
             tasks=tasks,
             hack_for_project_id=str(project_id)

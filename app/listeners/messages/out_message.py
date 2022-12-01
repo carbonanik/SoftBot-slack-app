@@ -3,8 +3,8 @@ from logging import Logger
 from slack_bolt import BoltContext, Say
 from slack_sdk import WebClient
 
-from app.blocks.block.block import mrkdwn_text
-from app.blocks.interactive.select_completed_tasks import select_completed_task
+from app.blocks.block.block import markdown_text
+from app.blocks.interactive.select_completed_tasks_blocks import select_completed_task_blocks
 from app.db.db import Database
 
 
@@ -28,19 +28,15 @@ def out_message(context: BoltContext, client: WebClient, body: dict, say: Say, l
         if not attendance or not in_progress:
             client.chat_postMessage(
                 channel=context['channel_id'],
-                blocks=[mrkdwn_text(markdown="You are not in")],
+                blocks=[markdown_text(markdown="You are not in")],
             )
             return
-
-        # tasks = []
-        # for t in in_progress:
-        #     tasks.append({"text": t["title"], "value": str(t["id"])})
 
         tasks = list(map(lambda t: {"text": t["title"], "value": str(t["id"])}, in_progress))
 
         client.chat_postMessage(
             channel=context['channel_id'],
-            blocks=select_completed_task(tasks=tasks, hack_for_project_id=str(in_progress[0]["project_id"])),
+            blocks=select_completed_task_blocks(tasks=tasks, hack_for_project_id=str(in_progress[0]["project_id"])),
         )
 
     except Exception as e:

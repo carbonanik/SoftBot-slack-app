@@ -7,66 +7,66 @@ def take_a_break_modal():
         },
         "type": "modal",
         "blocks": [
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": "✅ *Seletc a break you need*"
-                    }
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "✅ *Seletc a break you need*"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*☕Kilo Break*"
                 },
-            {
-                    "type": "section",
+                "accessory": {
+                    "type": "button",
                     "text": {
-                        "type": "mrkdwn",
-                        "text": "*☕Kilo Break*"
+                        "type": "plain_text",
+                        "text": "5 min",
+                        "emoji": True
                     },
-                    "accessory": {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "5 min",
-                            "emoji": True
-                        },
-                        "action_id": "kilo-break",
-                        "value": "kilo-break",
-                        "style": "primary"
-                    }
+                    "action_id": "kilo-break",
+                    "value": "kilo-break",
+                    "style": "primary"
+                }
             },
             {
-                    "type": "section",
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*🛌Mega Break*"
+                },
+                "accessory": {
+                    "type": "button",
                     "text": {
-                            "type": "mrkdwn",
-                        "text": "*🛌Mega Break*"
+                        "type": "plain_text",
+                        "text": "10 min",
+                        "emoji": True
                     },
-                    "accessory": {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "10 min",
-                            "emoji": True
-                        },
-                        "action_id": "mega-break",
-                        "value": "mega-break",
-                        "style": "primary"
-                    }
+                    "action_id": "mega-break",
+                    "value": "mega-break",
+                    "style": "primary"
+                }
             },
             {
-                    "type": "section",
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*🏖️Giga Break*"
+                },
+                "accessory": {
+                    "type": "button",
                     "text": {
-                        "type": "mrkdwn",
-                        "text": "*🏖️Giga Break*"
+                        "type": "plain_text",
+                        "text": "20 min",
+                        "emoji": True
                     },
-                    "accessory": {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "20 min",
-                            "emoji": True
-                        },
-                        "action_id": "giga-break",
-                        "value": "giga-break",
-                        "style": "primary"
-                    }
+                    "action_id": "giga-break",
+                    "value": "giga-break",
+                    "style": "primary"
+                }
             }
         ]
     }

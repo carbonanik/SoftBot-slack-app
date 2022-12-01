@@ -3,8 +3,8 @@ def task_created_modal():
         "type": "modal",
         "callback_id": "modal-identifier",
         "title": {
-                "type": "plain_text",
-                "text": "Congratulation! 🎉 "
+            "type": "plain_text",
+            "text": "Congratulation! 🎉 "
         },
         "blocks": [
             {
@@ -25,11 +25,11 @@ def task_created_modal():
                 },
                 "accessory": {
                     "type": "button",
-                            "text": {
-                                "type": "plain_text",
-                                "text": "Assain",
-                                        "emoji": True
-                            },
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Assain",
+                        "emoji": True
+                    },
                     "value": "click_me_123",
                     "action_id": "assain-to-task",
                     "style": "danger"

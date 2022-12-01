@@ -1,8 +1,8 @@
 from app.blocks.block.block import header, text_option
-from app.blocks.interactive.select_and_add_task import actions
+from app.blocks.interactive.and_and_select_task_blocks import actions
 
 
-def select_project(projects):
+def select_project_blocks(projects):
     return [
         header("Select the project you are going to work on"),
         actions(elements=[

@@ -2,7 +2,7 @@ from logging import Logger
 from slack_bolt import BoltContext, Ack
 from slack_sdk import WebClient
 
-from app.blocks.block.block import mrkdwn_text
+from app.blocks.block.block import markdown_text
 from app.db.db import Database
 from app.util.const import common_channel_id
 
@@ -29,13 +29,13 @@ def individual_break_select(ack: Ack, body, client: WebClient, context: BoltCont
 
         client.chat_update(
             channel=body['container']['channel_id'],
-            blocks=[mrkdwn_text(markdown=f"You are on a {selected_time} break")],
+            blocks=[markdown_text(markdown=f"You are on a {selected_time} break")],
             ts=body['container']['message_ts'],
         )
 
         client.chat_postMessage(
             channel=common_channel_id,
-            blocks=[mrkdwn_text(markdown=f"{name} on a {selected_time} break")],
+            blocks=[markdown_text(markdown=f"{name} on a {selected_time} break")],
         )
 
     except Exception as e:

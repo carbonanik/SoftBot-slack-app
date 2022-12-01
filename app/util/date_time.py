@@ -1,8 +1,8 @@
-from datetime import datetime
-from time import time
-from pytz import timezone, all_timezones, utc
 import re
+from datetime import datetime
 from datetime import timedelta
+
+from pytz import timezone
 
 
 def now_date_str(tz):

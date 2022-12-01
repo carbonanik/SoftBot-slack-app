@@ -1,7 +1,7 @@
 from typing import List
 
 
-def header(text):
+def header(text: str) -> dict:
     return {
         "type": "header",
         "text": {
@@ -12,13 +12,13 @@ def header(text):
     }
 
 
-def divider():
+def divider() -> dict:
     return {
         "type": "divider"
     }
 
 
-def mrkdwn_text(markdown):
+def markdown_text(markdown: str) -> dict:
     return {
         "type": "section",
         "text": {
@@ -28,7 +28,7 @@ def mrkdwn_text(markdown):
     }
 
 
-def context_text(text):
+def context_text(text: str) -> dict:
     return {
         "type": "context",
         "elements": [
@@ -41,7 +41,12 @@ def context_text(text):
     }
 
 
-def multiline_text_input(label, placeholder, block_id, action_id):
+def multiline_text_input(
+        label: str,
+        placeholder: str,
+        block_id: str,
+        action_id: str
+) -> dict:
     return {
         "type": "input",
         "block_id": block_id,

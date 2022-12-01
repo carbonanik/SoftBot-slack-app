@@ -4,7 +4,7 @@ from typing import List
 from slack_bolt import BoltContext, Ack
 from slack_sdk import WebClient
 
-from app.blocks.interactive.review_and_blockers import review_and_blockers
+from app.blocks.interactive.review_and_blockers_blocks import review_and_blockers_blocks
 from app.db.db import Database
 
 
@@ -12,16 +12,17 @@ def select_completed_task_next_action(ack: Ack, body, client: WebClient, context
     ack()
     try:
         blocks = body['message']['blocks']
-        print(blocks)
 
         all_visible_task = list(filter(lambda b: b['block_id'] == "task-to-mark", blocks))[0]['elements'][0]['options']
         selected_tasks: List = body['state']['values']['task-to-mark']['completed-task-select']['selected_options']
+
         if not selected_tasks:
             return
 
         unselected_tasks = [task for task in all_visible_task if task not in selected_tasks]
 
         project = None
+
         if unselected_tasks:
             project_id = blocks[1]['elements'][1]['value']
             print(project_id)
@@ -34,7 +35,7 @@ def select_completed_task_next_action(ack: Ack, body, client: WebClient, context
 
         client.chat_update(
             channel=body['container']['channel_id'],
-            blocks=review_and_blockers(
+            blocks=review_and_blockers_blocks(
                 tasks=review_task,
                 project=project
             ),

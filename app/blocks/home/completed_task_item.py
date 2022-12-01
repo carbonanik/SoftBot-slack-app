@@ -7,7 +7,7 @@ def completed_task_item(title, description):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "*"+title+"*"
+                "text": "*" + title + "*"
             }
         },
         {

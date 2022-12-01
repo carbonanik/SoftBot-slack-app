@@ -1,8 +1,8 @@
 from app.blocks.block.block import header
-from app.blocks.interactive.select_and_add_task import plain_text_input, actions, button_element
+from app.blocks.interactive.and_and_select_task_blocks import plain_text_input, actions, button_element
 
 
-def review_and_blockers(tasks, project):
+def review_and_blockers_blocks(tasks, project):
     blocks = [header("Write your feedback on completed task")]
 
     blocks += [plain_text_input(

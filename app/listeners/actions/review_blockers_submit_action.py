@@ -1,24 +1,22 @@
 from logging import Logger
 from slack_bolt import BoltContext, Ack
 from slack_sdk import WebClient
-from app.blocks.response.out_with_summery import out_with_summery
+from app.blocks.response.out_with_summery_blocks import out_with_summery_blocks
 from app.db.db import Database
 from app.util.const import common_channel_id
 from app.util.date_time import time_delta_to_str, now_time_str
 
 
-def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltContext, logger: Logger):
+def review_blockers_submit_action(ack: Ack, body, client: WebClient, context: BoltContext, logger: Logger):
     ack()
     try:
         state = body['state']['values']
         blocks = body['message']['blocks']
+
         completed_tasks = list(filter(lambda b: b['block_id'].startswith('task-'), blocks))
-        tasks_ids = list(map(lambda c: int(c['block_id'].removeprefix('task-')), completed_tasks))
+        completed_tasks_ids = list(map(lambda c: int(c['block_id'].removeprefix('task-')), completed_tasks))
 
         slack_id = context["user_id"]
-
-        print('Body ==>', body)
-        print('State ==>', state)
 
         user_info = client.users_info(user=slack_id)["user"]
         name = user_info["real_name"] if user_info["real_name"] else user_info["name"]
@@ -27,15 +25,13 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
         db = Database()
         db.connect_to_database()
         participant = db.get_participant_by_slack_id(slack_id)[0]
-        attendance = db.get_attendance_by_participant_id_where_out_time_null(participant['id'])
-        if attendance:
-            attendance = attendance[0]
-        else:
+        attendances = db.get_attendance_by_participant_id_where_out_time_null(participant['id'])
+
+        if not attendances:
             return
+        attendance = attendances[0]
 
-        print('attendance ==>', attendance)
-
-        for task_id in tasks_ids:
+        for task_id in completed_tasks_ids:
             db.task_update_ended_at(int(task_id))
 
         for s in state:
@@ -49,6 +45,7 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
             elif s.startswith('project-'):
                 project_id = s.removeprefix('project-')
                 project_blocker = state[s]['plain_text_input-action']['value']
+                print(project_id)
 
                 if project_blocker:
                     db.insert_blocker(project_blocker, int(project_id), participant['id'])
@@ -56,21 +53,17 @@ def review_blockers_submit(ack: Ack, body, client: WebClient, context: BoltConte
         updated_attendance = db.update_attendance_out_time_by_id(attendance['id'])[0]
         worked_time = updated_attendance['out_time'] - updated_attendance['in_time']
 
-        print('tasks ids ==>', tasks_ids)
-        tasks = db.get_tasks_by_ids(tuple(tasks_ids))
-        print('tasks ==>', tasks)
-        print('project id ==>', tasks[0]['project_id'])
-        project = db.get_project_by_id(tasks[0]['project_id'])[0]
-        print('project ==>', project)
+        tasks = db.get_tasks_by_ids(tuple(completed_tasks_ids))
 
-        blocks = out_with_summery(
+        project = db.get_project_by_id(tasks[0]['project_id'])[0]
+
+        blocks = out_with_summery_blocks(
             name=name,
             time=now_time_str(local_tz),
             hour=time_delta_to_str(worked_time),
             project=project['title'],
             tasks=list(map(lambda t: t['title'], tasks))
         )
-        # [header(text=f"{name} out at {now_time_str(local_tz)}, worked {time_delta_to_str(worked_time)}")]
 
         client.chat_update(
             channel=body['container']['channel_id'],

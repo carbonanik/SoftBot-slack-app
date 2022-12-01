@@ -1,4 +1,3 @@
-
 def join_form(name="", email="", phone="", title=""):
     return [
         {
@@ -112,4 +111,3 @@ def join_form(name="", email="", phone="", title=""):
             "type": "divider"
         }
     ]
-

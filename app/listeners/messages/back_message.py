@@ -3,7 +3,7 @@ from logging import Logger
 from slack_bolt import BoltContext, Say
 from slack_sdk import WebClient
 
-from app.blocks.block.block import mrkdwn_text
+from app.blocks.block.block import markdown_text
 from app.db.db import Database
 from app.util.date_time import time_delta_to_str
 
@@ -25,7 +25,7 @@ def back_message(context: BoltContext, client: WebClient, body: dict, say: Say, 
         if not participant:
             client.chat_postMessage(
                 channel=channel_id,
-                blocks=[mrkdwn_text(markdown="Start by sending start")]
+                blocks=[markdown_text(markdown="Start by sending start")]
             )
             return
 
@@ -34,7 +34,7 @@ def back_message(context: BoltContext, client: WebClient, body: dict, say: Say, 
         if not attendance:
             client.chat_postMessage(
                 channel=channel_id,
-                blocks=[mrkdwn_text(markdown="You are not in")]
+                blocks=[markdown_text(markdown="You are not in")]
             )
             return
         attendance_id = attendance[0]['id']
@@ -46,7 +46,7 @@ def back_message(context: BoltContext, client: WebClient, body: dict, say: Say, 
         if not non_ended_break:
             client.chat_postMessage(
                 channel=channel_id,
-                blocks=[mrkdwn_text(markdown="You are not on break")]
+                blocks=[markdown_text(markdown="You are not on break")]
             )
             return
 
@@ -58,7 +58,7 @@ def back_message(context: BoltContext, client: WebClient, body: dict, say: Say, 
 
         client.chat_postMessage(
             channel=channel_id,
-            blocks=[mrkdwn_text(markdown=f'You are back after {time_delta_to_str(time_difference)}')]
+            blocks=[markdown_text(markdown=f'You are back after {time_delta_to_str(time_difference)}')]
         )
 
     except Exception as e:

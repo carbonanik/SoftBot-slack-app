@@ -3,8 +3,8 @@ from logging import Logger
 from slack_bolt import BoltContext, Say
 from slack_sdk import WebClient
 
-from app.blocks.block.block import mrkdwn_text
-from app.blocks.interactive.select_project import select_project
+from app.blocks.block.block import markdown_text
+from app.blocks.interactive.select_project_blocks import select_project_blocks
 from app.db.db import Database
 
 
@@ -24,7 +24,7 @@ def in_message(context: BoltContext, client: WebClient, body: dict, say: Say, lo
         if not participant:
             client.chat_postMessage(
                 channel=context['channel_id'],
-                blocks=[mrkdwn_text(markdown="To participate in attendance write `start`")]
+                blocks=[markdown_text(markdown="To participate in attendance write `start`")]
             )
             return
 
@@ -33,7 +33,7 @@ def in_message(context: BoltContext, client: WebClient, body: dict, say: Say, lo
         if not projects:
             client.chat_postMessage(
                 channel=context['channel_id'],
-                blocks=[mrkdwn_text(markdown="No Project have been created")]
+                blocks=[markdown_text(markdown="No Project have been created, To create project `add project`")]
             )
             return
 
@@ -41,7 +41,7 @@ def in_message(context: BoltContext, client: WebClient, body: dict, say: Say, lo
 
         client.chat_postMessage(
             channel=context['channel_id'],
-            blocks=select_project(projects=project_arr_dict)
+            blocks=select_project_blocks(projects=project_arr_dict)
         )
 
     except Exception as e:

@@ -11,7 +11,7 @@ def individual_break_modal():
             radio_button_select(
                 block_id="individual_break_radio",
                 action_id="individual_break_select",
-                label="✅ Seletc a break you need",
+                label="✅ Select a break you need",
                 options=[
                     {"text": "30 minutes break ☕", "value": "1"},
                     {"text": "1 hour break 🛏️", "value": "2"},

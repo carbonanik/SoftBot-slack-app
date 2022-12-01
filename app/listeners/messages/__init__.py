@@ -1,6 +1,8 @@
 from slack_bolt import App
 
+from app.listeners.messages.add_project_message import add_project_message
 from app.listeners.messages.back_message import back_message
+from app.listeners.messages.blockers_message import blockers_message
 from app.listeners.messages.break_message import break_message
 from app.listeners.messages.sample_message_callback import sample_message_callback
 from app.listeners.messages.in_message import in_message
@@ -19,3 +21,5 @@ def register(app: App):
     app.message("summery")(summery_message)
     app.message("break")(break_message)
     app.message("back")(back_message)
+    app.message("add project")(add_project_message)
+    app.message("blocker")(blockers_message)

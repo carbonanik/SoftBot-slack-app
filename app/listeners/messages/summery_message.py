@@ -16,31 +16,21 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
         db.connect_to_database()
 
         participants: List = db.get_all_participant()
-        # print('participants ==> ', participants)
         attendances: List = db.get_last_attendance_of_day(date.today())
-        # print('attendance  ==> ', attendances)
         attendance_ids = tuple(map(lambda a: a['id'], attendances))
-        # print('attendance_ids ==> ', attendance_ids)
         tasks = db.get_tasks_by_attendance_ids(attendance_ids)
         tasks_ids = tuple(map(lambda t: t['id'], tasks))
-        # print('task_ids ==> ', tasks_ids)
         projects = db.get_project_by_task_ids(tasks_ids)
-
-        # print('projects ==> ', projects)
 
         project_task = []
 
         for project in projects:
             tasks_of_project = list(filter(lambda t: t['project_id'] == project['id'], tasks))
-            # print('project ==> ', project)
-            # print('task_of_project ==> ', tasks_of_project)
 
             project_task.append({
                 "project": project['title'],
                 "tasks": list(map(lambda t: t['title'], tasks_of_project))
             })
-
-        # print('project task ==> ', project_task)
 
         present_list = []
         absent_list = []
@@ -49,17 +39,13 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
         bangladesh_timezone = 'Asia/Dhaka'
 
         for participant in participants:
-            print('working for  ==> ', participant['id'])
             attend = list(filter(lambda a: a['participant_id'] == participant['id'], attendances))
-            print('attend ==> ', attend)
 
             if not attend:
-                print('attend empty')
                 absent_list.append(participant['name'])
                 continue
 
             in_time = attend[0]['in_time']
-            print('in_time ==> ', in_time)
 
             in_time = in_time.replace(tzinfo=utc)
             in_time = in_time.astimezone(timezone(bangladesh_timezone))
@@ -76,11 +62,6 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
         if not absent_list:
             absent_list.append('No one absent')
 
-        # print('present_list ==> ', present_list)
-        # print('absent_list ==> ', absent_list)
-        # print('delayed_list ==> ', delayed_list)
-        # print('project_task ==> ', project_task)
-
         client.chat_postMessage(
             channel=context['channel_id'],
             blocks=daily_summery(
@@ -88,7 +69,7 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
                 present_list=present_list,
                 absent_list=absent_list,
                 delayed_list=delayed_list,
-                project_task=project_task  # list(map(lambda t: t['title'], tasks))
+                project_task=project_task
             )
         )
 

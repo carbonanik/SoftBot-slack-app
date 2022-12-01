@@ -3,7 +3,7 @@ from logging import Logger
 from slack_bolt import BoltContext, Say
 from slack_sdk import WebClient
 
-from app.blocks.block.block import header, mrkdwn_text
+from app.blocks.block.block import header, markdown_text
 from app.db.db import Database
 from app.util.const import common_channel_id
 
@@ -31,7 +31,7 @@ def start_message(context: BoltContext, client: WebClient, body: dict, say: Say,
             client.chat_postMessage(
                 channel=context['channel_id'],
                 blocks=[
-                    mrkdwn_text(markdown="You are already participating in attendance, type `in`")
+                    markdown_text(markdown="You are already participating in attendance, type `in`")
                 ],
                 user=slack_id
             )
@@ -40,14 +40,14 @@ def start_message(context: BoltContext, client: WebClient, body: dict, say: Say,
         client.chat_postMessage(
             channel=context['channel_id'],
             blocks=[
-                mrkdwn_text(markdown="You have joined the attendance start by typing `in`")
+                markdown_text(markdown="You have joined the attendance start by typing `in`")
             ],
             user=slack_id
         )
         client.chat_postMessage(
             channel=common_channel_id,
             blocks=[
-                mrkdwn_text(markdown=f"{name} joined the attendance")
+                markdown_text(markdown=f"{name} joined the attendance")
             ],
             user=slack_id
         )

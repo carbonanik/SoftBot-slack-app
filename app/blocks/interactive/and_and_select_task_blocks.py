@@ -1,10 +1,10 @@
-from app.blocks.block.block import header, mrkdwn_text, text_option
+from app.blocks.block.block import header, markdown_text, text_option
 
 
-def select_and_add_task(project, tasks, hack_for_project_id):
+def add_and_select_task_blocks(project, tasks, hack_for_project_id):
     blocks = [
         header(text=project),
-        mrkdwn_text(markdown="Select the task you want to wark on") if tasks else None,
+        markdown_text(markdown="Select the task you want to wark on") if tasks else None,
         actions(
             elements=[
                 checkbox_element(action_id="task-selected", options=tasks, initial_options=tasks),

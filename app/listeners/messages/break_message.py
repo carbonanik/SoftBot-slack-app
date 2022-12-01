@@ -3,7 +3,7 @@ from logging import Logger
 from slack_bolt import BoltContext, Say
 from slack_sdk import WebClient
 
-from app.blocks.block.block import mrkdwn_text
+from app.blocks.block.block import markdown_text
 from app.blocks.interactive.select_individual_break import select_individual_break
 from app.db.db import Database
 
@@ -25,7 +25,7 @@ def break_message(context: BoltContext, client: WebClient, body: dict, say: Say,
         if not participant:
             client.chat_postMessage(
                 channel=channel_id,
-                blocks=[mrkdwn_text(markdown="Start by sending start")]
+                blocks=[markdown_text(markdown="Start by sending start")]
             )
             return
 
@@ -34,7 +34,7 @@ def break_message(context: BoltContext, client: WebClient, body: dict, say: Say,
         if not attendance:
             client.chat_postMessage(
                 channel=channel_id,
-                blocks=[mrkdwn_text(markdown="You are not in")]
+                blocks=[markdown_text(markdown="You are not in")]
             )
             return
         print('==>', attendance[0]['id'])
@@ -45,7 +45,7 @@ def break_message(context: BoltContext, client: WebClient, body: dict, say: Say,
         if non_ended_break:
             client.chat_postMessage(
                 channel=channel_id,
-                blocks=[mrkdwn_text(markdown="You are already on a break")]
+                blocks=[markdown_text(markdown="You are already on a break")]
             )
             return
 

@@ -1,8 +1,8 @@
 from app.blocks.block.block import header
-from app.blocks.interactive.select_and_add_task import actions, button_element, checkbox_element
+from app.blocks.interactive.and_and_select_task_blocks import actions, button_element, checkbox_element
 
 
-def select_completed_task(tasks, hack_for_project_id):
+def select_completed_task_blocks(tasks, hack_for_project_id):
     return [
         header(text="Select the task you have completed"),
         actions(

@@ -2,15 +2,15 @@ def time_modal():
     return {
         "title": {
             "type": "plain_text",
-                    "text": "Start Here 📝"
+            "text": "Start Here 📝"
         },
         "submit": {
             "type": "plain_text",
-                    "text": "Start"
+            "text": "Start"
         },
         "close": {
             "type": "plain_text",
-                    "text": "Cancel"
+            "text": "Cancel"
         },
         "blocks": [
             {
