@@ -5,6 +5,7 @@ from slack_sdk import WebClient
 
 from app.blocks.block.block import markdown_text
 from app.db.db import Database
+from app.util.const import common_channel_id
 from app.util.date_time import time_delta_to_str
 
 
@@ -17,6 +18,9 @@ def back_message(context: BoltContext, client: WebClient, body: dict, say: Say, 
 
         if not is_dm:
             return
+
+        user_info = client.users_info(user=slack_id)["user"]
+        name = user_info["real_name"] if user_info["real_name"] else user_info["name"]
 
         db = Database()
         db.connect_to_database()
@@ -59,6 +63,10 @@ def back_message(context: BoltContext, client: WebClient, body: dict, say: Say, 
         client.chat_postMessage(
             channel=channel_id,
             blocks=[markdown_text(markdown=f'You are back after {time_delta_to_str(time_difference)}')]
+        )
+        client.chat_postMessage(
+            channel=common_channel_id,
+            blocks=[markdown_text(markdown=f'{name} back after {time_delta_to_str(time_difference)}')]
         )
 
     except Exception as e:
