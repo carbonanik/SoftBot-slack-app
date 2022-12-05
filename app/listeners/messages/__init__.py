@@ -20,7 +20,7 @@ def register(app: App):
     app.message(re.compile("start", re.IGNORECASE))(start_message)
     app.message(re.compile("in", re.IGNORECASE))(in_message)
     app.message(re.compile("out", re.IGNORECASE))(out_message)
-    app.message(re.compile("summery", re.IGNORECASE))(summery_message)
+    app.message(re.compile("summary", re.IGNORECASE))(summery_message)
     app.message(re.compile("break", re.IGNORECASE))(break_message)
     app.message(re.compile("back", re.IGNORECASE))(back_message)
     app.message(re.compile("add project", re.IGNORECASE))(add_project_message)
