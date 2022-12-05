@@ -96,3 +96,51 @@ def text_option(text, value):
 
 def titled_list(title, emoji, items: List):
     return f'*{title}*\n\n' + ''.join([f'{emoji} {item} \n' for item in items]) + '\n'
+
+
+def actions(elements, block_id):
+    return {
+        "type": "actions",
+        "elements": elements,
+        "block_id": block_id,
+    }
+
+
+def button_element(text, value, action_id, style="primary"):
+    return {
+        "type": "button",
+        "style": style,
+        "text": {
+            "type": "plain_text",
+            "text": text
+        },
+        "value": value,
+        "action_id": action_id
+    }
+
+
+def plain_text_input(text, action_id, block_id):
+    return {
+        "type": "input",
+        "block_id": block_id,
+        "element": {
+            "type": "plain_text_input",
+            "action_id": action_id,
+            "initial_value": ""
+        },
+        "label": {
+            "type": "plain_text",
+            "text": text,
+            "emoji": True
+        }
+    }
+
+
+def checkbox_element(options, initial_options, action_id):
+    return {
+        "type": "checkboxes",
+        "options": [text_option(text=option["text"], value=option["value"]) for option in options],
+        # "initial_options": [text_option(text=option["text"], value=option["value"]) for option in
+        #                     initial_options],
+        "action_id": action_id
+    }

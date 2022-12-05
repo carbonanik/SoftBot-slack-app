@@ -202,6 +202,10 @@ class Database:
         return execute("SELECT * FROM task WHERE id=%s;")
 
     @decorator_function
+    def get_tasks_project_id(self, execute, project_id):
+        return execute("SELECT * FROM task WHERE project_id=%s;")
+
+    @decorator_function
     def get_tasks_by_ids(self, execute, task_ids):
         return execute("SELECT * FROM task  WHERE id IN %s;")
 

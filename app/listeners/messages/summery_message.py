@@ -50,7 +50,7 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
             in_time = in_time.replace(tzinfo=utc)
             in_time = in_time.astimezone(timezone(bangladesh_timezone))
 
-            if in_time.time() > datetime.strptime('9:30', '%H:%M').time():
+            if in_time.time() > datetime.strptime('10:00', '%H:%M').time():
                 delayed_list.append(participant['name'])
             else:
                 present_list.append(participant['name'])

@@ -61,7 +61,7 @@ def daily_summery_command(ack: Ack, client: WebClient, body: dict, logger: Logge
                 in_time = in_time.astimezone(timezone(bangladesh_timezone))
                 print(in_time.time())
 
-                if in_time.time() > datetime.strptime('9:30', '%H:%M').time():
+                if in_time.time() > datetime.strptime('10:00', '%H:%M').time():
                     print("late")
                     delayed_list.append(ti['name'])
                 else:
