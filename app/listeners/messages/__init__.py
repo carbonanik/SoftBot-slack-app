@@ -11,15 +11,16 @@ from app.listeners.messages.test_message import test_message
 from app.listeners.messages.start_message import start_message
 from app.listeners.messages.out_message import out_message
 from app.listeners.messages.summery_message import summery_message
+import re
 
 
 def register(app: App):
-    app.message("test")(test_message)
-    app.message("start")(start_message)
-    app.message("in")(in_message)
-    app.message("out")(out_message)
-    app.message("summery")(summery_message)
-    app.message("break")(break_message)
-    app.message("back")(back_message)
-    app.message("add project")(add_project_message)
-    app.message("blocker")(blockers_message)
+    app.message(re.compile("test", re.IGNORECASE))(test_message)
+    app.message(re.compile("start", re.IGNORECASE))(start_message)
+    app.message(re.compile("in", re.IGNORECASE))(in_message)
+    app.message(re.compile("out", re.IGNORECASE))(out_message)
+    app.message(re.compile("summery", re.IGNORECASE))(summery_message)
+    app.message(re.compile("break", re.IGNORECASE))(break_message)
+    app.message(re.compile("back", re.IGNORECASE))(back_message)
+    app.message(re.compile("add project", re.IGNORECASE))(add_project_message)
+    app.message(re.compile("blocker", re.IGNORECASE))(blockers_message)
