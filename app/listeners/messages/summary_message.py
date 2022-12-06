@@ -9,9 +9,17 @@ from app.db.db import Database
 from datetime import date, datetime
 from pytz import utc, timezone
 
+from app.util.const import common_channel_id
 
-def summery_message(context: BoltContext, client: WebClient, body: dict, say: Say, logger: Logger):
+
+def summary_massage(context: BoltContext, client: WebClient, body: dict, say: Say, logger: Logger):
     try:
+        channel_id: str = context['channel_id']
+        is_dm = channel_id.startswith("D")
+
+        if not is_dm:
+            return
+
         db = Database()
         db.connect_to_database()
 
@@ -64,6 +72,18 @@ def summery_message(context: BoltContext, client: WebClient, body: dict, say: Sa
 
         client.chat_postMessage(
             channel=context['channel_id'],
+            blocks=daily_summery(
+                date=date.today(),
+                present_list=present_list,
+                absent_list=absent_list,
+                delayed_list=delayed_list,
+                project_task=project_task
+            )
+        )
+
+        client.chat_postMessage(
+            text="open message to view summery",
+            channel=common_channel_id,
             blocks=daily_summery(
                 date=date.today(),
                 present_list=present_list,

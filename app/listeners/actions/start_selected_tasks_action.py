@@ -49,6 +49,7 @@ def start_selected_task_action(ack: Ack, body, client: WebClient, context: BoltC
             ts=body['container']['message_ts'],
         )
         client.chat_postMessage(
+            text=f'{name} In',
             channel=common_channel_id,
             blocks=blocks,
         )

@@ -2,3 +2,10 @@
 #2 # post back message in attendance-beta channel == Done
 #3 # message feature => add task == Done
 #4 # delay time 10:00 AM == Done
+#5 # notification can't show block message
+        # in message == Done
+        # out message == Done
+        # summary message == Done
+
+#6 # show working on project on in
+#7 # remove linebreak space on `in`

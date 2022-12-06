@@ -16,7 +16,8 @@ def add_task_action(ack: Ack, body, client: WebClient, context: BoltContext, log
         participant = db.get_participant_by_slack_id(slack_id)
 
         try:
-            new_task_name = body['state']['values']['task-name']['plain_text_input-action']['value']
+            new_task_name = body['state']['values']['task-name'][
+                'plain_text_input-action']['value']
         except:
             return
 

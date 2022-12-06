@@ -71,6 +71,7 @@ def review_blockers_submit_action(ack: Ack, body, client: WebClient, context: Bo
             ts=body['container']['message_ts'],
         )
         client.chat_postMessage(
+            text=f"{name} out, worked {time_delta_to_str(worked_time)}",
             channel=common_channel_id,
             blocks=blocks,
         )
