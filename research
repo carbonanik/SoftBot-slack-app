@@ -12,7 +12,7 @@ left side color line -------
 					"type": "section",
 					"text": {
 						"type": "mrkdwn",
-						"text": "*Present* \n\n👤Name\n👤Name\n\n "
+						"text": "*Present* \n👤Name\n👤Name\n\n "
 					}
 				}
 			]

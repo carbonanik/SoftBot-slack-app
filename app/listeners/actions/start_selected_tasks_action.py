@@ -38,9 +38,14 @@ def start_selected_task_action(ack: Ack, body, client: WebClient, context: BoltC
             db.task_update_started_at(tid)
             db.insert_relation_attendance_to_task(attendance['id'], int(tid))
 
+        tasks = db.get_tasks_by_ids(tuple(tasks_ids))
+
+        project = db.get_project_by_id(tasks[0]['project_id'])[0]
+
         blocks = you_are_in(
             name=name,
             time=now_time_str(local_tz),
+            project=project['title'],
             tasks=tasks_titles
         )
         client.chat_update(

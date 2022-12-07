@@ -95,7 +95,9 @@ def text_option(text, value):
 
 
 def titled_list(title, emoji, items: List):
-    return f'*{title}*\n\n' + ''.join([f'{emoji} {item} \n' for item in items]) + '\n'
+    if title:
+        title = f'*{title}*\n'
+    return title + ''.join([f'{emoji} {item} \n' for item in items]) + '\n'
 
 
 def actions(elements, block_id):

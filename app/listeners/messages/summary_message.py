@@ -63,10 +63,8 @@ def summary_massage(context: BoltContext, client: WebClient, body: dict, say: Sa
             else:
                 present_list.append(participant['name'])
 
-        if not present_list:
-            present_list.append('No one present')
-        if not delayed_list:
-            delayed_list.append('No one delayed')
+        if not present_list and not delayed_list:
+            delayed_list.append('No one Present')
         if not absent_list:
             absent_list.append('No one absent')
 
@@ -82,7 +80,7 @@ def summary_massage(context: BoltContext, client: WebClient, body: dict, say: Sa
         )
 
         client.chat_postMessage(
-            text="open message to view summery",
+            text="Summary",
             channel=common_channel_id,
             blocks=daily_summery(
                 date=date.today(),

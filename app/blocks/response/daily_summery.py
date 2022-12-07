@@ -8,7 +8,7 @@ def daily_summery(date, present_list, absent_list, delayed_list, project_task):
         header(text="Attendance ✍️"),
         markdown_text(markdown=
                       titled_list(title="Present", emoji="👤", items=present_list) +
-                      titled_list(title="Delayed", emoji="😞", items=delayed_list) +
+                      titled_list(title="", emoji="😞", items=delayed_list) +
                       titled_list(title="Absent", emoji="⛔", items=absent_list)
                       ),
         divider(),
