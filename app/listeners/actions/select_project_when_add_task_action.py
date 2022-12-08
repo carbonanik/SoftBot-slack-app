@@ -1,7 +1,8 @@
 from logging import Logger
+
 from slack_bolt import BoltContext, Ack
 from slack_sdk import WebClient
-from app.blocks.interactive.and_and_select_task_blocks import add_and_select_task_blocks
+
 from app.blocks.interactive.list_and_add_task_block import list_and_add_task_block
 from app.db.db import Database
 

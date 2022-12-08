@@ -4,7 +4,7 @@ from slack_bolt import BoltContext, Say
 from slack_sdk import WebClient
 
 from app.blocks.block.block import markdown_text
-from app.blocks.interactive.select_project_blocks import select_project_blocks
+from app.blocks.interactive.select_multiple_project_blocks import select_multiple_project_blocks
 from app.db.db import Database
 
 
@@ -33,16 +33,21 @@ def in_message(context: BoltContext, client: WebClient, body: dict, say: Say, lo
         if not projects:
             client.chat_postMessage(
                 channel=context['channel_id'],
-                blocks=[markdown_text(markdown="No Project have been created, To create project `add project`")]
+                blocks=[markdown_text(
+                    markdown="No Project have been created, To create project `add project`"
+                )]
             )
             return
 
-        project_arr_dict = list(map(lambda p: {"text": p["title"], "value": str(p["id"])}, projects))
+        project_arr_dict = list(map(lambda p: {"text": f'*{p["title"]}*', "value": str(p["id"])}, projects))
 
         client.chat_postMessage(
             channel=context['channel_id'],
-            blocks=select_project_blocks(projects=project_arr_dict, action_id="select-project")
+            blocks=select_multiple_project_blocks(
+                projects=project_arr_dict
+            )
         )
+        # select_project_blocks(projects=project_arr_dict, action_id="select-project")
 
     except Exception as e:
         logger.error(e)

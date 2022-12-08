@@ -1,8 +1,6 @@
-from app.listeners import messages, events, actions, commands
+from app.listeners import messages, actions
 
 
 def register_listeners(app):
     messages.register(app)
-    events.register(app)
     actions.register(app)
-    commands.register(app)

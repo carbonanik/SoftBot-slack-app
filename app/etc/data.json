@@ -1,4 +1,26 @@
 {
+    "type": "block_actions",
+    "user": {
+        "id": "U02NVERT65B",
+        "username": "shkhnk",
+        "name": "shkhnk",
+        "team_id": "T02NRMZN8NS"
+    },
+    "api_app_id": "A041B86RPKK",
+    "token": "WhZeL8jaksq091eEOcIbXt8Z",
+    "container": {
+        "type": "message",
+        "message_ts": "1670427915.569379",
+        "channel_id": "D040YNFKT7U",
+        "is_ephemeral": false
+    },
+    "trigger_id": "4494688031665.2773747756774.025fc6194bf87018c6f15490bde41abf",
+    "team": {
+        "id": "T02NRMZN8NS",
+        "domain": "carbonanik"
+    },
+    "enterprise": null,
+    "is_enterprise_install": false,
     "channel": {
         "id": "D040YNFKT7U",
         "name": "directmessage"
@@ -8,24 +30,24 @@
         "type": "message",
         "text": "This content can't be displayed.",
         "user": "U040J5JEFSB",
-        "ts": "1669632450.570649",
+        "ts": "1670427915.569379",
         "app_id": "A041B86RPKK",
         "blocks": [
             {
                 "type": "header",
-                "block_id": "umJ",
+                "block_id": "ewnfK",
                 "text": {
                     "type": "plain_text",
-                    "text": "Add new project :orange_book:",
+                    "text": "py",
                     "emoji": true
                 }
             },
             {
                 "type": "input",
-                "block_id": "project-name",
+                "block_id": "task-name-10",
                 "label": {
                     "type": "plain_text",
-                    "text": "Project Name ",
+                    "text": "New Task Name",
                     "emoji": true
                 },
                 "optional": false,
@@ -33,32 +55,7 @@
                 "element": {
                     "type": "plain_text_input",
                     "action_id": "plain_text_input-action",
-                    "dispatch_action_config": {
-                        "trigger_actions_on": [
-                            "on_enter_pressed"
-                        ]
-                    }
-                }
-            },
-            {
-                "type": "input",
-                "block_id": "project-description",
-                "label": {
-                    "type": "plain_text",
-                    "text": "Description ",
-                    "emoji": true
-                },
-                "optional": false,
-                "dispatch_action": false,
-                "element": {
-                    "type": "plain_text_input",
-                    "action_id": "plain_text_input-action",
-                    "placeholder": {
-                        "type": "plain_text",
-                        "text": "Write a short description of the project",
-                        "emoji": true
-                    },
-                    "multiline": true,
+                    "initial_value": "",
                     "dispatch_action_config": {
                         "trigger_actions_on": [
                             "on_enter_pressed"
@@ -68,54 +65,99 @@
             },
             {
                 "type": "actions",
-                "block_id": "create-project",
+                "block_id": "add-task-10",
                 "elements": [
                     {
                         "type": "button",
-                        "action_id": "create-project",
+                        "action_id": "add-task",
                         "text": {
                             "type": "plain_text",
-                            "text": "Create",
+                            "text": "Add Task",
                             "emoji": true
                         },
                         "style": "danger",
-                        "value": "0"
+                        "value": "add"
+                    }
+                ]
+            },
+            {
+                "type": "header",
+                "block_id": "Z9rR",
+                "text": {
+                    "type": "plain_text",
+                    "text": "War lock",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "input",
+                "block_id": "task-name-11",
+                "label": {
+                    "type": "plain_text",
+                    "text": "New Task Name",
+                    "emoji": true
+                },
+                "optional": false,
+                "dispatch_action": false,
+                "element": {
+                    "type": "plain_text_input",
+                    "action_id": "plain_text_input-action",
+                    "initial_value": "",
+                    "dispatch_action_config": {
+                        "trigger_actions_on": [
+                            "on_enter_pressed"
+                        ]
+                    }
+                }
+            },
+            {
+                "type": "actions",
+                "block_id": "add-task-11",
+                "elements": [
+                    {
+                        "type": "button",
+                        "action_id": "add-task",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Add Task",
+                            "emoji": true
+                        },
+                        "style": "danger",
+                        "value": "add"
                     }
                 ]
             }
         ],
-        "team": "T02NRMZN8NS"
+        "team": "T02NRMZN8NS",
+        "edited": {
+            "user": "B040S4K565C",
+            "ts": "1670427919.000000"
+        }
     },
     "state": {
         "values": {
-            "project-name": {
+            "task-name-10": {
                 "plain_text_input-action": {
                     "type": "plain_text_input",
-                    "value": "py"
-                }
-            },
-            "project-description": {
-                "plain_text_input-action": {
-                    "type": "plain_text_input",
-                    "value": "py d"
+                    "value": "New"
                 }
             }
         }
     },
-    "response_url": "https://hooks.slack.com/actions/T02NRMZN8NS/4444258705361/Ai7bsQ6oIBJOYtUl6x9EcPlB",
+    "response_url": "https://hooks.slack.com/actions/T02NRMZN8NS/4479103842661/YfcIqphb9G8SFoD32pQqOcdI",
     "actions": [
         {
-            "action_id": "create-project",
-            "block_id": "create-project",
+            "action_id": "add-task",
+            "block_id": "add-task-10",
             "text": {
                 "type": "plain_text",
-                "text": "Create",
+                "text": "Add Task",
                 "emoji": true
             },
-            "value": "0",
+            "value": "add",
             "style": "danger",
             "type": "button",
-            "action_ts": "1669632461.008926"
+            "action_ts": "1670427927.609946"
         }
     ]
 }

@@ -121,14 +121,14 @@ def button_element(text, value, action_id, style="primary"):
     }
 
 
-def plain_text_input(text, action_id, block_id):
+def plain_text_input(text, action_id, block_id, initial_value=""):
     return {
         "type": "input",
         "block_id": block_id,
         "element": {
             "type": "plain_text_input",
             "action_id": action_id,
-            "initial_value": ""
+            "initial_value": initial_value
         },
         "label": {
             "type": "plain_text",
@@ -138,7 +138,7 @@ def plain_text_input(text, action_id, block_id):
     }
 
 
-def checkbox_element(options, initial_options, action_id):
+def checkbox_element(options, action_id, initial_options=None):
     return {
         "type": "checkboxes",
         "options": [text_option(text=option["text"], value=option["value"]) for option in options],
