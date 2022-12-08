@@ -1,3 +1,4 @@
+import json
 from logging import Logger
 
 from slack_bolt import BoltContext, Say
@@ -32,11 +33,17 @@ def out_message(context: BoltContext, client: WebClient, body: dict, say: Say, l
             )
             return
 
-        tasks = list(map(lambda t: {"text": t["title"], "value": str(t["id"])}, in_progress))
+        tasks = list(map(lambda t: {
+            "text": t["title"],
+            "value": json.dumps(obj={
+                "project_id": t['project_id'],
+                "task_id": t['id'],
+            })
+        }, in_progress))
 
         client.chat_postMessage(
             channel=context['channel_id'],
-            blocks=select_completed_task_blocks(tasks=tasks, hack_for_project_id=str(in_progress[0]["project_id"])),
+            blocks=select_completed_task_blocks(tasks=tasks, payload='project name payload'),
         )
 
     except Exception as e:

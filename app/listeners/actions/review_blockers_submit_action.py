@@ -13,6 +13,10 @@ def review_blockers_submit_action(ack: Ack, body, client: WebClient, context: Bo
         state = body['state']['values']
         blocks = body['message']['blocks']
 
+        projects_ids = body['actions'][0]['value'].split(',')
+        projects_ids = tuple(map(lambda pi: int(pi), projects_ids))
+        # return
+
         completed_tasks = list(filter(lambda b: b['block_id'].startswith('task-'), blocks))
         completed_tasks_ids = list(map(lambda c: int(c['block_id'].removeprefix('task-')), completed_tasks))
 
@@ -55,13 +59,21 @@ def review_blockers_submit_action(ack: Ack, body, client: WebClient, context: Bo
 
         tasks = db.get_tasks_by_ids(tuple(completed_tasks_ids))
 
-        project = db.get_project_by_id(tasks[0]['project_id'])[0]
+        # project = db.get_project_by_id(tasks[0]['project_id'])[0]
+        projects = db.get_projects_by_ids(projects_ids)
+
+        projects_names = list(map(lambda p: p['title'], projects))
+
+        if len(projects_names) > 1:
+            projects_names_join = ', '.join(projects_names[:-1]) + ' & ' + projects_names[-1]
+        else:
+            projects_names_join = projects_names[0]
 
         blocks = out_with_summery_blocks(
             name=name,
             time=now_time_str(local_tz),
             hour=time_delta_to_str(worked_time),
-            project=project['title'],
+            project=projects_names_join,
             tasks=list(map(lambda t: t['title'], tasks))
         )
 

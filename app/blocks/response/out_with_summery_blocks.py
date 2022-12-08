@@ -6,7 +6,7 @@ def out_with_summery_blocks(name, time, hour, project, tasks):
         header(text=f"{name} out at {time}, worked {hour}"),
         markdown_text(
             markdown=titled_list(
-                title=project,
+                title=f'Worked on {project}',
                 emoji="📝",
                 items=tasks
             )

@@ -26,6 +26,9 @@ def start_selected_tasks_in_multiple_project_action(ack: Ack, body, client: WebC
             if key.startswith('task-under-project-'):
                 selected_tasks += statest[key]['task-under-project-selected']['selected_options']
 
+        if not selected_tasks:
+            return
+
         tasks_ids = list(map(lambda t: t['value'], selected_tasks))
         tasks_titles = list(map(lambda t: t['text']['text'], selected_tasks))
 

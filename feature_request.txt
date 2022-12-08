@@ -10,6 +10,6 @@
 #6 # show working on project on in == Done
 #7 # remove linebreak space on `in` == Done
 #8 # select multiple project == Done
-#9 # can out even no task complete
+#9 # can out even no task complete == Done
 
 #10 # working on multiple projectc
