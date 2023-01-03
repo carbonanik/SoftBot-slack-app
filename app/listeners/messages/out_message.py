@@ -24,9 +24,9 @@ def out_message(context: BoltContext, client: WebClient, body: dict, say: Say, l
 
         participant = db.get_participant_by_slack_id(slack_id)[0]
         attendance = db.get_attendance_by_participant_id_where_out_time_null(participant['id'])
-        in_progress = db.get_in_progress_task_by_participant_id(participant['id'])
+        in_progress_task = db.get_in_progress_task_by_participant_id(participant['id'])
 
-        if not attendance or not in_progress:
+        if not attendance or not in_progress_task:
             client.chat_postMessage(
                 channel=context['channel_id'],
                 blocks=[markdown_text(markdown="You are not in")],
@@ -39,7 +39,7 @@ def out_message(context: BoltContext, client: WebClient, body: dict, say: Say, l
                 "project_id": t['project_id'],
                 "task_id": t['id'],
             })
-        }, in_progress))
+        }, in_progress_task))
 
         client.chat_postMessage(
             channel=context['channel_id'],

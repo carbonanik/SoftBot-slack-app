@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
+
+from app.features import register_features
 from app.listeners import register_listeners
 
 load_dotenv()
@@ -17,7 +19,7 @@ app = App(
 logging.basicConfig(level=logging.ERROR)
 
 register_listeners(app)
-
+# register_features(app)
 
 @app.message("joke")  # type: ignore
 def show_random_joke(message, say):

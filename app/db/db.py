@@ -103,8 +103,9 @@ class Database:
             "INSERT INTO attendance (in_time, on_break, participant_id) VALUES (NOW(), false, %s) RETURNING *;")
 
     @decorator_function
+    # review blockers submit
     def get_attendance_by_participant_id_where_out_time_null(self, execute, participant_id):
-        return execute("SELECT * FROM attendance WHERE participant_id=%s AND out_time IS NULL;")
+        return execute("SELECT * FROM attendance WHERE participant_id=%s AND out_time IS NULL ORDER BY in_time DESC;")
 
     @decorator_function
     def get_last_attendance_where_not_out(self, execute, participant_id):

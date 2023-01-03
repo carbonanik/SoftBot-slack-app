@@ -34,6 +34,7 @@ def review_blockers_submit_action(ack: Ack, body, client: WebClient, context: Bo
         if not attendances:
             return
         attendance = attendances[0]
+        attendances.pop(0)
 
         for task_id in completed_tasks_ids:
             db.task_update_ended_at(int(task_id))
@@ -53,6 +54,9 @@ def review_blockers_submit_action(ack: Ack, body, client: WebClient, context: Bo
 
                 if project_blocker:
                     db.insert_blocker(project_blocker, int(project_id), participant['id'])
+
+        for at in attendances:
+            x = db.update_attendance_out_time_by_id(at['id'])[0]
 
         updated_attendance = db.update_attendance_out_time_by_id(attendance['id'])[0]
         worked_time = updated_attendance['out_time'] - updated_attendance['in_time']

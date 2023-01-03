@@ -57,7 +57,7 @@ def start_selected_tasks_in_multiple_project_action(ack: Ack, body, client: WebC
             ts=body['container']['message_ts'],
         )
         client.chat_postMessage(
-            text=f'{name} In',
+            text=f'{name} In at {now_time_str(local_tz)}',
             channel=common_channel_id,
             blocks=blocks,
         )
