@@ -282,6 +282,10 @@ class Database:
         return execute("SELECT * FROM project WHERE id=%s;")
 
     @decorator_function
+    def get_project_not_ended(self, execute):
+        return execute("SELECT * FROM project WHERE ended_at IS NULL;")
+
+    @decorator_function
     def get_projects_by_ids(self, execute, project_ids):
         return execute('SELECT * FROM project WHERE id IN %s;')
 

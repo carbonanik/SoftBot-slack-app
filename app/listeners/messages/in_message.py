@@ -28,7 +28,7 @@ def in_message(context: BoltContext, client: WebClient, body: dict, say: Say, lo
             )
             return
 
-        projects = db.get_projects()
+        projects = db.get_project_not_ended()
 
         if not projects:
             client.chat_postMessage(
